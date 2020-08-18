@@ -1,0 +1,24 @@
+﻿@if (Movies == null)
+{
+    <p>Loading Movies...</p>
+}
+else if (Movies.Count == 0)
+{
+    <p>Movie list is empty!</p>
+}
+else
+{
+    <input type="checkbox" @onchange="@(() => displayButtons = !displayButtons)" />
+
+    @foreach (Movie movie in Movies)
+    {
+        <IndividualMovie Movie="movie" DisplayButtons="displayButtons" />
+    }
+}
+
+@code {
+    [Parameter]
+    public List<Movie> Movies { get; set; }
+
+    private bool displayButtons = false;
+}
