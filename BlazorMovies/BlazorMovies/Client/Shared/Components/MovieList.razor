@@ -10,23 +10,41 @@
     </ElementTemplate>
 </GenericList>
 
-
+<Confirmation @ref="confirmation" onCancel="onCancel" onConfirm="onConfirm">
+    <div>Do you wish to delete @movieToBeDeleted.Title?</div>
+</Confirmation>
 
 @code {
     [Parameter]
     public List<Movie> Movies { get; set; }
 
+    private Confirmation confirmation;
+
     private bool displayButtons = false;
+
+    private Movie movieToBeDeleted;
 
     private async Task DeleteMovie(Movie movie)
     {
+        movieToBeDeleted = movie;
+
+        confirmation.Show();
+
         await js.MyFunction("Requested Movie delete");
 
-        var result = await js.Confirm($"Are you sure you want to delete {movie.Title}?");
+        //var result = await js.Confirm($"Are you sure you want to delete {movie.Title}?");
+    }
 
-        if (result)
-        {
-            Movies.Remove(movie);
-        }
+    private void onConfirm()
+    {
+        Movies.Remove(movieToBeDeleted);
+        confirmation.Hide();
+        movieToBeDeleted = null;
+    }
+
+    private void onCancel()
+    {
+        confirmation.Hide();
+        movieToBeDeleted = null;
     }
 }
