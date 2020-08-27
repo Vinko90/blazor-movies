@@ -1,0 +1,44 @@
+﻿@typeparam TItem
+
+@if (List == null)
+{
+    if (NullTemplate != null)
+    {
+        @NullTemplate
+    }
+    else
+    {
+        <h3>Cannot retrieve list!</h3>
+    }
+}
+else if (List.Count == 0)
+{
+    if (EmptyCountTemplate != null)
+    {
+        @EmptyCountTemplate
+    }
+    else
+    {
+        <h3>List is empty!</h3>
+    }
+}
+else
+{
+    @foreach (var item in List)
+    {
+        @ElementTemplate(item);
+    }
+}
+@code {
+    [Parameter]
+    public RenderFragment NullTemplate { get; set; }
+
+    [Parameter]
+    public RenderFragment EmptyCountTemplate { get; set; }
+
+    [Parameter]
+    public RenderFragment<TItem> ElementTemplate { get; set; }
+
+    [Parameter]
+    public List<TItem> List { get; set; }
+}
