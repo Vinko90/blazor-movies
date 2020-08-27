@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Components;
 using Microsoft.JSInterop;
 using System.Threading.Tasks;
+using static BlazorMovies.Client.Shared.MainLayout;
 
 namespace BlazorMovies.Client.Pages
 {
@@ -14,6 +15,9 @@ namespace BlazorMovies.Client.Pages
 
         [Inject]
         IJSRuntime js { get; set; }
+
+        [CascadingParameter]
+        public AppState AppState { get; set; }
 
         private int currentCount = 0;
         private static int currentCountStatic = 0;
