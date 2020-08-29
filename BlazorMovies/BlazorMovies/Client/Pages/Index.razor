@@ -6,25 +6,7 @@
     <MovieList Movies="movies" />
 </div>
 
-<div>
-    <h2>Create a movie</h2>
-    <DummyTextBox placeholder="Movie Name" />
-
-    <DummyTextBox @attributes="dummyTextBoxParameters" />
-</div>
-
-<div>
-    <h2>Test Image Component</h2>
-    <Image Url="https://i2.wp.com/kevinvermassen.be/wp-content/uploads/2016/08/tux.png" alt="Tux" height="50px" width="50px"/>
-</div>
-
 @code {
-
-    private Dictionary<string, object> dummyTextBoxParameters = new Dictionary<string, object>()
-    {
-        { "placeholder", "Movie Date"},
-        { "disabled",    "true"}
-    };
 
     private List<Movie> movies;
 
