@@ -1,0 +1,16 @@
+﻿@page "/movies/create"
+@inject NavigationManager navMan
+
+<h3>Create Movie</h3>
+
+<button class="btn btn-primary" @onclick="SaveMovie">Save Movie</button>
+
+@code {
+
+    private void SaveMovie()
+    {
+        //Save procedure
+        Console.WriteLine(navMan.Uri);
+        navMan.NavigateTo("movie");
+    }
+}
