@@ -1,0 +1,29 @@
+﻿<EditForm Model="PersonItem" OnValidSubmit="OnValidPersonSubmit">
+    <DataAnnotationsValidator />
+
+    <div class="form-group">
+        <label for="name">Name:</label>
+        <div>
+            <InputText class="form-control" @bind-Value="@PersonItem.Name" />
+            <ValidationMessage For="@(() => PersonItem.Name)" />
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label for="date">Date of Birth:</label>
+        <div>
+            <InputDate class="form-control" @bind-Value="@PersonItem.DateOfBirth" />
+            <ValidationMessage For="@(() => PersonItem.DateOfBirth)" />
+        </div>
+    </div>
+
+    <div class="form-group">
+       
+    </div>
+
+    <div class="form-group">
+        
+    </div>
+
+    <button type="submit" class="btn btn-primary">Submit</button>
+</EditForm>

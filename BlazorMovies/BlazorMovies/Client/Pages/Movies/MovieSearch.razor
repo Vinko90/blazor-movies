@@ -1,0 +1,34 @@
+﻿@page "/movies/search"
+
+<h3>Search Movie</h3>
+
+<div class="form-inline">
+    <div class="form-group mb-2">
+        <label for="Title" class="sr-only">Title</label>
+        <input type="text" class="form-control" id="title" placeholder="Movie Title"
+               @bind-value="Title" @bind-value:event="oninput"
+               @onkeypress="@((KeyboardEventArgs e) => TitleKeyPress(e))" />
+    </div>
+    <div class="form-group mx-sm-3 mb-2">
+        <select class="form-control" @bind="SelectedGenre">
+            <option value="0">--Select a Movie Genre</option>
+            @foreach (Genre genre in GenresList)
+            {
+                <option value="@genre.Id">@genre.Name</option>
+            }
+        </select>
+    </div>
+    <div class="form-group mx-sm-3 mb-2">
+        <input type="checkbox" class="form-check-input" id="upcomingReleases" @bind="UpcomingReleases" />
+        <label class="form-check-label" for="upcomingReleases">Upcoming Releases</label>
+    </div>
+    <div class="form-group mx-sm-3 mb-2">
+        <input type="checkbox" class="form-check-input" id="inTheaters" @bind="InTheaters" />
+        <label class="form-check-label" for="inTheaters">In Theaters</label>
+    </div>
+
+    <button type="button" class="btn btn-primary mb-2 mx-sm-3" @onclick="SearchForMovies">Filter</button>
+    <button type="button" class="btn btn-danger mb-2" @onclick="Clear">Clear</button>
+</div>
+
+<MovieList Movies="MoviesList" /> 
