@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using BlazorMovies.Client.Helpers;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 using Microsoft.Extensions.DependencyInjection;
+using Tewr.Blazor.FileReader;
 
 namespace BlazorMovies.Client
 {
@@ -16,7 +17,9 @@ namespace BlazorMovies.Client
 
             builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri(builder.HostEnvironment.BaseAddress) });
             
+            //Custom Added
             builder.Services.AddTransient<IRepository, RepositoryInMemory>();
+            builder.Services.AddFileReaderService(options => options.InitializeOnFirstCall = true);
 
             await builder.Build().RunAsync();
         }

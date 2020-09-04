@@ -10,5 +10,22 @@ namespace BlazorMovies.Client.Shared.Components
         
         [Parameter]
         public EventCallback OnValidPersonSubmit { get; set; }
+
+        private string ImageURL;
+
+        private void PictureSelected(string imageBase64)
+        {
+            PersonItem.Picture = imageBase64;
+            ImageURL = null;
+        }
+
+        protected override void OnInitialized()
+        {
+            if (!string.IsNullOrEmpty(PersonItem.Picture))
+            {
+                ImageURL = PersonItem.Picture;
+                PersonItem.Picture = null;
+            }
+        }
     }
 }
