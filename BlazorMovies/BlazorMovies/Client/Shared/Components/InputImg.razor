@@ -1,0 +1,25 @@
+<div>
+    <label>@Label</label>
+    <div>
+        <input type="file" @ref="InputReference" @onchange="ImageFileSelected" accept=".jpg,.jpeg,.png" />
+    </div>
+</div>
+<div>
+    @if (ImageBase64 != null)
+    {
+        <div>
+            <div style="margin:10px">
+               <img src="data:image/jpeg;base64, @ImageBase64" style="width: 400px;" /> 
+            </div>
+        </div>
+    }
+
+    @if (ImageURL != null)
+    {
+        <div>
+            <div style="margin:10px">
+               <img src="@ImageURL" style="width: 400px;" /> 
+            </div>
+        </div>
+    }
+</div>
