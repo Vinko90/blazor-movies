@@ -21,8 +21,8 @@
        <InputImg Label="Picture" OnSelectedImage="PictureSelected" ImageURL="@ImageURL" />
     </div>
 
-    <div class="form-group">
-        
+    <div class="form-group form-markdown">
+        <InputMarkdown @bind-Value="PersonItem.Biography" Label="Biography" For="@(() => PersonItem.Biography)" />
     </div>
 
     <button type="submit" class="btn btn-primary">Submit</button>

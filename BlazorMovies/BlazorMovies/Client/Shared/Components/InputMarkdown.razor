@@ -1,0 +1,16 @@
+﻿@inherits InputTextArea
+@typeparam TValue
+
+<div>
+    <label>@Label</label>
+    <div>
+        <InputTextArea @bind-Value="CurrentValue" />
+        <ValidationMessage For="For" />
+    </div>
+</div>
+<div>
+    <label>@Label (Preview):</label>
+    <div class="markdown-container">
+        <RenderMarkdown MarkdownContent="@CurrentValue" />
+    </div>
+</div>
