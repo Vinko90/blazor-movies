@@ -43,5 +43,20 @@
         </div>
     </div>
 
+    <div class="form-group">
+        <label>Actors:</label>
+        <div>
+            <MultipleSelectorTypeahead Context="person" SearchMethod="SearchMethod" SelectedElements="SelectedActors">
+                <MyResultTemplate>
+                    <img style="width: 50px;" src="@person.Picture" />
+                    @person.Name
+                </MyResultTemplate>
+                <MyListTemplate>
+                    @person.Name
+                </MyListTemplate>
+            </MultipleSelectorTypeahead>
+        </div>
+    </div>
+
     <button class="btn btn-primary" type="submit">Save Changes</button>
 </EditForm>

@@ -3,6 +3,7 @@ using BlazorMovies.Shared.Entities;
 using Microsoft.AspNetCore.Components;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace BlazorMovies.Client.Shared.Components
 {
@@ -19,6 +20,9 @@ namespace BlazorMovies.Client.Shared.Components
 
         [Parameter]
         public List<Genre> NotSelectedGenres { get; set; } = new List<Genre>();
+
+        [Parameter]
+        public List<Person> SelectedActors { get; set; } = new List<Person>();
 
         private string ImageURL;
 
@@ -48,6 +52,14 @@ namespace BlazorMovies.Client.Shared.Components
         {
             Selected = SelectedGenres.Select(x => new MultipleSelectorModel(x.Id.ToString(), x.Name)).ToList();
             NotSelected = NotSelectedGenres.Select(x => new MultipleSelectorModel(x.Id.ToString(), x.Name)).ToList();
+        }
+
+        private async Task<IEnumerable<Person>> SearchMethod(string searchText)
+        {
+            return new List<Person>() { 
+                new Person() { Id = 1, Name = "Tom Holland", Picture = "https://m.media-amazon.com/images/M/MV5BNTAzMzA3NjQwOF5BMl5BanBnXkFtZTgwMDUzODQ5MTI@._V1_UY317_CR23,0,214,317_AL_.jpg"},
+                new Person() { Id = 2, Name = "Tom Hanks", Picture = "https://m.media-amazon.com/images/M/MV5BMTQ2MjMwNDA3Nl5BMl5BanBnXkFtZTcwMTA2NDY3NQ@@._V1_UY317_CR2,0,214,317_AL_.jpg"}
+            };
         }
     }
 }
