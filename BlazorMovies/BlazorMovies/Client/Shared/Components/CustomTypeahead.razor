@@ -1,0 +1,53 @@
+﻿@*Modification from Chris Sainty's typehead component*@
+@typeparam TItem
+
+<div class="blazored-typeahead">
+    <div class="blazored-typeahead-controls">
+        <input type="text"
+               class="blazored-typeahead-input"
+               autocomplete="off"
+               placeholder="@PlaceHolder"
+               @bind-value="@SearchText"
+               @bind-value:event="oninput"
+               @onclick="@ShowSuggestions"
+               @onfocusout="OnFocusOut" />
+    </div>
+    @if (IsSearching)
+    {
+        <div class="blazored-typeahead-results">
+            <div class="blazored-typeahead-result">
+                <span>Loading...</span>
+            </div>
+        </div>
+    }
+    else if (ShouldShowSuggestions())
+    {
+        <div class="blazored-typeahead-results">
+            @foreach (var suggestion in Suggestions)
+            {
+                <div @key="suggestion" class="blazored-typeahead-result"
+                     tabindex="0" @onclick="@(() => SelectSuggestion(suggestion))"
+                     @onmouseover="OnMouseOverSuggestion" @onmouseout="OnMouseOutSuggestion">
+                    @ResultTemplate(suggestion)
+                </div>
+            }
+        </div>
+    }
+    else if (ShowNotFound())
+    {
+        <div class="blazored-typeahead-results">
+            @if (NotFoundTemplate != null)
+            {
+                <div class="blazored-typeahead-notfound">
+                    @NotFoundTemplate
+                </div>
+            }
+            else
+            {
+                <div class="blazored-typeahead-notfound">
+                    No Results Found
+                </div>
+            }
+        </div>
+    }
+</div>
