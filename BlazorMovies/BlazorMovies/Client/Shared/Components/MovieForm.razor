@@ -1,0 +1,47 @@
+﻿<EditForm Model="MovieItem" OnValidSubmit="OnValidMovieSubmit">
+    <DataAnnotationsValidator />
+    <div class="form-group">
+        <label>Title:</label>
+        <div>
+            <InputText class="form-control" @bind-Value="@MovieItem.Title" />
+            <ValidationMessage For="@(() => MovieItem.Title)" />
+        </div>
+    </div>
+    <div class="form-group">
+        <label>In Theaters</label>
+        <div>
+            <InputCheckbox @bind-Value="@MovieItem.InTheaters" />
+            <ValidationMessage For="@(() => MovieItem.InTheaters)" />
+        </div>
+    </div>
+    <div class="form-group">
+        <label>Trailer:</label>
+        <div>
+            <InputText class="form-control" @bind-Value="@MovieItem.Trailer" />
+            <ValidationMessage For="@(() => MovieItem.Trailer)" />
+        </div>
+    </div>
+    <div class="form-group">
+        <label>Release Date:</label>
+        <div>
+            <InputDate class="form-control" @bind-Value="@MovieItem.ReleaseDate" />
+            <ValidationMessage For="@(() => MovieItem.ReleaseDate)" />
+        </div>
+    </div>
+    <div class="form-group">
+        <InputImg Label="Picture" OnSelectedImage="PosterSelected" ImageURL="@ImageURL" />
+    </div>
+
+    <div class="form-group form-markdown">
+        <InputMarkdown @bind-Value="MovieItem.Summary" Label="Summary" For="@(() => MovieItem.Summary)" />
+    </div>
+
+    <div class="form-group">
+        <label>Genres:</label>
+        <div>
+            <MultipleSelector Selected="Selected" NotSelected="NotSelected"></MultipleSelector>
+        </div>
+    </div>
+
+    <button class="btn btn-primary" type="submit">Save Changes</button>
+</EditForm>

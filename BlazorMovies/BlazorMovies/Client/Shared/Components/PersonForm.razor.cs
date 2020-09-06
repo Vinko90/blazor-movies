@@ -13,12 +13,6 @@ namespace BlazorMovies.Client.Shared.Components
 
         private string ImageURL;
 
-        private void PictureSelected(string imageBase64)
-        {
-            PersonItem.Picture = imageBase64;
-            ImageURL = null;
-        }
-
         protected override void OnInitialized()
         {
             if (!string.IsNullOrEmpty(PersonItem.Picture))
@@ -26,6 +20,12 @@ namespace BlazorMovies.Client.Shared.Components
                 ImageURL = PersonItem.Picture;
                 PersonItem.Picture = null;
             }
+        }
+
+        private void PictureSelected(string imageBase64)
+        {
+            PersonItem.Picture = imageBase64;
+            ImageURL = null;
         }
     }
 }

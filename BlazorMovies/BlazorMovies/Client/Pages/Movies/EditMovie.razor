@@ -1,8 +1,8 @@
 ﻿@page "/movies/edit/{MovieId:int}"
 
-<h3>EditMovie</h3>
+<h3>Edit Movie</h3>
 
-@code {
-    [Parameter]
-    public int MovieId { get; set; }
+@if (MovieItem != null)
+{
+    <MovieForm MovieItem="MovieItem" OnValidMovieSubmit="EditMovieItem" NotSelectedGenres="NotSelectedGenre" SelectedGenres="SelectedGenre" />
 }
