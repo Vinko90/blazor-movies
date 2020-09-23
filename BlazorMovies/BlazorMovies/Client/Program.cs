@@ -2,6 +2,7 @@ using System;
 using System.Net.Http;
 using System.Threading.Tasks;
 using BlazorMovies.Client.Helpers;
+using BlazorMovies.Client.Repository;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 using Microsoft.Extensions.DependencyInjection;
 using Tewr.Blazor.FileReader;
@@ -19,6 +20,8 @@ namespace BlazorMovies.Client
             
             //Custom Added
             builder.Services.AddTransient<IRepository, RepositoryInMemory>();
+            builder.Services.AddScoped<IHttpService, HttpService>();
+            builder.Services.AddScoped<GenreRepository>();
             builder.Services.AddFileReaderService(options => options.InitializeOnFirstCall = true);
 
             await builder.Build().RunAsync();
