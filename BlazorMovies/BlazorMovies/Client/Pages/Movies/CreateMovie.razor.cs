@@ -13,16 +13,19 @@ namespace BlazorMovies.Client.Pages.Movies
         protected MoviesRepository movieRepository { get; set; }
 
         [Inject]
+        protected GenreRepository genreRepository { get; set; }
+
+        [Inject]
         protected NavigationManager NavMan { get; set; }
 
         private Movie MovieItem = new Movie();
 
-        private List<Genre> NotSelectedGenre = new List<Genre>()
+        private List<Genre> NotSelectedGenre;
+
+        protected override async Task OnInitializedAsync()
         {
-            new Genre(){Id = 1, Name = "Action"},
-            new Genre(){Id = 2, Name = "Comedy"},
-            new Genre(){Id = 3, Name = "Drama"}
-        };
+            NotSelectedGenre = await genreRepository.GetGenres();
+        }
 
         private async Task SaveMovie()
         {

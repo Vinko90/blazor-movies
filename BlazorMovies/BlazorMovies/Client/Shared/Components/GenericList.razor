@@ -24,11 +24,19 @@ else if (List.Count == 0)
 }
 else
 {
-    @foreach (var item in List)
+    @if (ElementTemplate != null)
     {
-        @ElementTemplate(item);
+        @foreach (var item in List)
+        {
+            @ElementTemplate(item);
+        }
+    }
+    else
+    {
+        @WholeListTemplate
     }
 }
+
 @code {
     [Parameter]
     public RenderFragment NullTemplate { get; set; }
@@ -38,6 +46,9 @@ else
 
     [Parameter]
     public RenderFragment<TItem> ElementTemplate { get; set; }
+
+    [Parameter]
+    public RenderFragment WholeListTemplate { get; set; }
 
     [Parameter]
     public List<TItem> List { get; set; }

@@ -1,6 +1,7 @@
 ﻿using BlazorMovies.Client.Helpers;
 using BlazorMovies.Shared.Entities;
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace BlazorMovies.Client.Repository
@@ -14,6 +15,18 @@ namespace BlazorMovies.Client.Repository
         public GenreRepository(IHttpService httpService)
         {
             this.httpService = httpService;
+        }
+
+        public async Task<List<Genre>> GetGenres()
+        {
+            var response = await httpService.Get<List<Genre>>(url);
+
+            if (!response.Success)
+            {
+                throw new ApplicationException(await response.GetBody());
+            }
+
+            return response.Response;
         }
 
         public async Task CreateGenre(Genre genre)

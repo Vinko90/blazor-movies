@@ -1,7 +1,32 @@
 ﻿@page "/person"
 
-<h3>IndexPerson</h3>
+<h3>Person View</h3>
 
-@code {
+<div class="form-group">
+    <a class="btn btn-info" href="person/create">New Person</a>
+</div>
 
-}
+<GenericList List="PersonList">
+    <WholeListTemplate>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th></th>
+                    <th>Name</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in PersonList)
+                {
+                    <tr>
+                        <td>
+                            <a class="btn btn-success">Edit</a>
+                            <button class="btn btn-danger">Delete</button>
+                        </td>
+                        <td>@item.Name</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </WholeListTemplate>
+</GenericList>
