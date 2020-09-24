@@ -16,6 +16,9 @@
 # Mono auto generated files
 mono_crash.*
 
+# Image file storage - Testing
+BlazorMovies/BlazorMovies/Server/wwwroot/
+
 # Build results
 [Dd]ebug/
 [Dd]ebugPublic/
