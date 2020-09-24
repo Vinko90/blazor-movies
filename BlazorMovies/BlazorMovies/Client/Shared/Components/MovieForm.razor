@@ -1,4 +1,4 @@
-﻿<EditForm Model="MovieItem" OnValidSubmit="OnValidMovieSubmit">
+﻿<EditForm Model="MovieItem" OnValidSubmit="OnDataAnnotationsValidated">
     <DataAnnotationsValidator />
     <div class="form-group">
         <label>Title:</label>
@@ -52,7 +52,7 @@
                     @person.Name
                 </MyResultTemplate>
                 <MyListTemplate>
-                    @person.Name
+                    @person.Name / <input type="text" placeholder="Character" @bind="person.Character" />
                 </MyListTemplate>
             </MultipleSelectorTypeahead>
         </div>

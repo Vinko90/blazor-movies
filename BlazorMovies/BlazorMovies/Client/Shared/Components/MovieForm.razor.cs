@@ -61,5 +61,19 @@ namespace BlazorMovies.Client.Shared.Components
                 new Person() { Id = 2, Name = "Tom Hanks", Picture = "https://m.media-amazon.com/images/M/MV5BMTQ2MjMwNDA3Nl5BMl5BanBnXkFtZTcwMTA2NDY3NQ@@._V1_UY317_CR2,0,214,317_AL_.jpg"}
             };
         }
+
+        private async Task OnDataAnnotationsValidated()
+        {
+            MovieItem.GenresList = Selected.Select(x => new MoviesGenres { GenreId = int.Parse(x.Key) }).ToList();
+
+            MovieItem.ActorList = SelectedActors.Select(x => new MoviesActors { PersonId = int.Parse(x.Character) }).ToList();
+
+            if (!string.IsNullOrWhiteSpace(MovieItem.Poster))
+            {
+                ImageURL = null;
+            }
+
+            await OnValidMovieSubmit.InvokeAsync(null);
+        }
     }
 }

@@ -1,12 +1,17 @@
-﻿using BlazorMovies.Shared.Entities;
+﻿using BlazorMovies.Client.Repository;
+using BlazorMovies.Shared.Entities;
 using Microsoft.AspNetCore.Components;
 using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace BlazorMovies.Client.Pages.Movies
 {
     public partial class CreateMovie
     {
+        [Inject]
+        protected MoviesRepository movieRepository { get; set; }
+
         [Inject]
         protected NavigationManager NavMan { get; set; }
 
@@ -19,11 +24,17 @@ namespace BlazorMovies.Client.Pages.Movies
             new Genre(){Id = 3, Name = "Drama"}
         };
 
-        private void SaveMovie()
+        private async Task SaveMovie()
         {
-            //Save procedure
-            Console.WriteLine(NavMan.Uri);
-            NavMan.NavigateTo("movie");
+            try
+            {
+                var movieId = await movieRepository.CreateMovie(MovieItem);
+                NavMan.NavigateTo($"movie/{movieId}/{MovieItem.Title.Replace(" ", "-")}");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Exception: {ex.Message}");
+            }
         }
     }
 }
