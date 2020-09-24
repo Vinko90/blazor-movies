@@ -22,6 +22,7 @@ namespace BlazorMovies.Client
             builder.Services.AddTransient<IRepository, RepositoryInMemory>();
             builder.Services.AddScoped<IHttpService, HttpService>();
             builder.Services.AddScoped<GenreRepository>();
+            builder.Services.AddScoped<PersonRepository>();
             builder.Services.AddFileReaderService(options => options.InitializeOnFirstCall = true);
 
             await builder.Build().RunAsync();

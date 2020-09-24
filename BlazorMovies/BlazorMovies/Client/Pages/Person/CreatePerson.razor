@@ -2,13 +2,4 @@
 
 <h3>Create Person</h3>
 
-<PersonForm PersonItem="PersonItem" OnValidPersonSubmit="Create"/>
-
-@code {
-    private Person PersonItem = new Person();
-
-    private void Create()
-    {
-        Console.WriteLine("Create person hit");
-    }
-}
+<PersonForm PersonItem="personItem" OnValidPersonSubmit="Create"/>
