@@ -19,7 +19,7 @@ namespace BlazorMovies.Client
             builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri(builder.HostEnvironment.BaseAddress) });
             
             //Custom Added
-            builder.Services.AddTransient<IRepository, RepositoryInMemory>();
+            //builder.Services.AddTransient<IRepository, RepositoryInMemory>();
             builder.Services.AddScoped<IHttpService, HttpService>();
             builder.Services.AddScoped<GenreRepository>();
             builder.Services.AddScoped<PersonRepository>();

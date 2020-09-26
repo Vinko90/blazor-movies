@@ -36,20 +36,3 @@ else
         @WholeListTemplate
     }
 }
-
-@code {
-    [Parameter]
-    public RenderFragment NullTemplate { get; set; }
-
-    [Parameter]
-    public RenderFragment EmptyCountTemplate { get; set; }
-
-    [Parameter]
-    public RenderFragment<TItem> ElementTemplate { get; set; }
-
-    [Parameter]
-    public RenderFragment WholeListTemplate { get; set; }
-
-    [Parameter]
-    public List<TItem> List { get; set; }
-}

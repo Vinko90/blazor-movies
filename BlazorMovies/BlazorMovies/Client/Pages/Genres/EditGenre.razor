@@ -6,20 +6,3 @@
 { 
     <GenreForm GenreItem="genre" OnValidGenreSubmit="Edit"/>
 }
-
-@code {
-    [Parameter]
-    public int GenreId { get; set; }
-
-    private Genre genre;
-
-    protected override void OnInitialized()
-    {
-        genre = new Genre() { Id = GenreId, Name = "Comedy" };
-    }
-
-    private void Edit()
-    {
-        Console.WriteLine("Edit hit");
-    }
-}

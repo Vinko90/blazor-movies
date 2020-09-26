@@ -24,23 +24,3 @@
         </div>
     </div>
 }
-
-@code {
-    [Parameter]
-    public string Title { get; set; } = "Confirm";
-
-    [Parameter]
-    public RenderFragment ChildContent { get; set; }
-
-    [Parameter]
-    public EventCallback onConfirm { get; set; }
-
-    [Parameter]
-    public EventCallback onCancel { get; set; }
-
-    private bool DisplayConfirmation = false;
-
-    public void Show() => DisplayConfirmation = true;
-
-    public void Hide() => DisplayConfirmation = false;
-}

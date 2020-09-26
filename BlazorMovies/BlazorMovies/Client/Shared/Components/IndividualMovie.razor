@@ -8,18 +8,3 @@
         <button type="button" class="btn btn-danger" @onclick="@(() => DeleteMovie.InvokeAsync(movie))">Delete</button>
     </div>
 </div>
-
-@code {
-    [Parameter]
-    public Movie movie { get; set; }
-
-    [Parameter]
-    public EventCallback<Movie> DeleteMovie { get; set; }
-
-    private string movieURL = string.Empty;
-
-    protected override void OnInitialized()
-    {
-        movieURL = $"movie/{movie.Id}/{movie.Title.Replace(" ", "-")}";
-    }
-}
