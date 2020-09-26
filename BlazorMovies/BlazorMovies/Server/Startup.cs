@@ -24,7 +24,10 @@ namespace BlazorMovies.Server
         {
 
             services.AddControllersWithViews();
-            services.AddRazorPages();
+
+            services.AddRazorPages()
+                .AddNewtonsoftJson(options =>
+                options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore); //Used to ignore circular references from db objects
 
             services.AddDbContext<AppDbContext>(options => 
                 options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));

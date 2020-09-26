@@ -45,6 +45,36 @@ namespace BlazorMovies.Server.Controllers
             return responseObject;
         }
 
+        [HttpGet("{id}")]
+        public async Task<ActionResult<DetailsMovieDTO>> Get(int id)
+        {
+            var movie = await dbcontext.MoviesRecords.Where(x => x.Id == id)
+                .Include(x => x.GenresList).ThenInclude(x => x.Genre)
+                .Include(x => x.ActorList).ThenInclude(x => x.Person)
+                .FirstOrDefaultAsync();
+
+            if (movie == null)
+            {
+                return NotFound();
+            }
+
+            movie.ActorList = movie.ActorList.OrderBy(x => x.Order).ToList();
+
+            var model = new DetailsMovieDTO();
+            model.MovieItem = movie;
+            model.Genres = movie.GenresList.Select(x => x.Genre).ToList();
+            model.Actors = movie.ActorList.Select(x =>
+                new Person
+                {
+                    Name = x.Person.Name,
+                    Picture = x.Person.Picture,
+                    Character = x.CharacterName,
+                    Id = x.PersonId
+                }).ToList();
+
+            return model;
+        }
+
         [HttpPost]
         public async Task<ActionResult<int>> Post(Movie movie)
         {
