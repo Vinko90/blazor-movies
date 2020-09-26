@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace BlazorMovies.Server.Controllers
@@ -28,6 +29,18 @@ namespace BlazorMovies.Server.Controllers
             return await dbcontext.PersonRecords.ToListAsync();
         }
 
+        [HttpGet("search/{searchText}")]
+        public async Task<ActionResult<List<Person>>> FilterByName(string searchText)
+        {
+            if (string.IsNullOrWhiteSpace(searchText))
+            {
+                return new List<Person>();
+            }
+
+            return await dbcontext.PersonRecords.Where(x => x.Name.Contains(searchText)).Take(5).ToListAsync();
+        }
+
+        [HttpPost]
         public async Task<ActionResult<int>> Post(Person person)
         {
             if (!string.IsNullOrWhiteSpace(person.Picture))

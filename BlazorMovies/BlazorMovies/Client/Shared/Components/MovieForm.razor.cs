@@ -1,4 +1,5 @@
 ﻿using BlazorMovies.Client.Helpers;
+using BlazorMovies.Client.Repository;
 using BlazorMovies.Shared.Entities;
 using Microsoft.AspNetCore.Components;
 using System.Collections.Generic;
@@ -9,6 +10,9 @@ namespace BlazorMovies.Client.Shared.Components
 {
     public partial class MovieForm
     {
+        [Inject]
+        public PersonRepository personRepository { get; set; }
+
         [Parameter]
         public Movie MovieItem { get; set; }
 
@@ -56,17 +60,14 @@ namespace BlazorMovies.Client.Shared.Components
 
         private async Task<IEnumerable<Person>> SearchMethod(string searchText)
         {
-            return new List<Person>() { 
-                new Person() { Id = 1, Name = "Tom Holland", Picture = "https://m.media-amazon.com/images/M/MV5BNTAzMzA3NjQwOF5BMl5BanBnXkFtZTgwMDUzODQ5MTI@._V1_UY317_CR23,0,214,317_AL_.jpg"},
-                new Person() { Id = 2, Name = "Tom Hanks", Picture = "https://m.media-amazon.com/images/M/MV5BMTQ2MjMwNDA3Nl5BMl5BanBnXkFtZTcwMTA2NDY3NQ@@._V1_UY317_CR2,0,214,317_AL_.jpg"}
-            };
+            return await personRepository.GetPeopleByName(searchText);
         }
 
         private async Task OnDataAnnotationsValidated()
         {
             MovieItem.GenresList = Selected.Select(x => new MoviesGenres { GenreId = int.Parse(x.Key) }).ToList();
 
-            MovieItem.ActorList = SelectedActors.Select(x => new MoviesActors { PersonId = int.Parse(x.Character) }).ToList();
+            MovieItem.ActorList = SelectedActors.Select(x => new MoviesActors { PersonId = x.Id, CharacterName = x.Character }).ToList();
 
             if (!string.IsNullOrWhiteSpace(MovieItem.Poster))
             {

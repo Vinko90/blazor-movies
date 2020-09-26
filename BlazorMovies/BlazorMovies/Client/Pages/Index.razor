@@ -1,9 +1,13 @@
 ﻿@page "/"
-@inject IRepository repository
 
 <div>
-    <h3>Movie</h3>
-    <MovieList Movies="movies" />
+    <h3>In Theaters</h3>
+    <MovieList Movies="InTheaters" />
+</div>
+
+<div>
+    <h3>Upcoming Releases</h3>
+    <MovieList Movies="UpcomingReleases" />
 </div>
 
 <CustomTypeahead SearchMethod="SearchMethod">
@@ -11,25 +15,3 @@
         @context
     </ResultTemplate>
 </CustomTypeahead>
-
-@code {
-
-    private List<Movie> movies;
-
-    protected override void OnInitialized()
-    {
-        movies = repository.GetMovies();
-    }
-
-    private async Task<IEnumerable<string>> SearchMethod(string searchText)
-    {
-        await Task.Delay(2000);
-
-        if (searchText == "test")
-        {
-            return Enumerable.Empty<string>();
-        }
-
-        return new List<string>() { "Test1", "Test2", "Test3" };
-    }
-}
