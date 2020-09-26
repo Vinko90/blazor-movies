@@ -1,24 +1,32 @@
-﻿using BlazorMovies.Shared.Entities;
+﻿using BlazorMovies.Client.Repository;
+using BlazorMovies.Shared.Entities;
 using Microsoft.AspNetCore.Components;
-using System;
+using System.Threading.Tasks;
 
 namespace BlazorMovies.Client.Pages.Genres
 {
     public partial class EditGenre
     {
+        [Inject]
+        public GenreRepository genreRepository { get; set; }
+
+        [Inject]
+        public NavigationManager navMan { get; set; }
+
         [Parameter]
         public int GenreId { get; set; }
 
         private Genre genre;
 
-        protected override void OnInitialized()
+        protected override async Task OnInitializedAsync()
         {
-            genre = new Genre() { Id = GenreId, Name = "Comedy" };
+            genre = await genreRepository.GetGenre(GenreId);
         }
 
-        private void Edit()
+        private async Task Edit()
         {
-            Console.WriteLine("Edit hit");
+            await genreRepository.UpdateGenre(genre);
+            navMan.NavigateTo("genres");
         }
     }
 }
