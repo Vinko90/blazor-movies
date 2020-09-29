@@ -25,5 +25,11 @@ namespace BlazorMovies.Client.Pages.Genres
                 Console.WriteLine($"Exception: {ex.Message}");
             }
         }
+
+        private async Task DeleteGenre(int id)
+        {
+            await genreRepository.DeleteGenre(id);
+            GenresList = await genreRepository.GetGenres();
+        }
     }
 }

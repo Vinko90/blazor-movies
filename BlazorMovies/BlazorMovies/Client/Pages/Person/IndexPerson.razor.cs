@@ -24,5 +24,11 @@ namespace BlazorMovies.Client.Pages.Person
                 Console.WriteLine($"Exception: {ex.Message}");
             }
         }
+
+        private async Task DeletePerson(int id)
+        {
+            await personRepository.DeletePerson(id);
+            PersonList = await personRepository.GetPersons();
+        }
     }
 }

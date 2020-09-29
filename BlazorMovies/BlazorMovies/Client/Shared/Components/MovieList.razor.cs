@@ -1,4 +1,5 @@
 ﻿using BlazorMovies.Client.Helpers;
+using BlazorMovies.Client.Repository;
 using BlazorMovies.Shared.Entities;
 using Microsoft.AspNetCore.Components;
 using System.Collections.Generic;
@@ -8,6 +9,9 @@ namespace BlazorMovies.Client.Shared.Components
 {
     public partial class MovieList
     {
+        [Inject]
+        public MoviesRepository movieRepository { get; set; }
+
         [Parameter]
         public List<Movie> Movies { get; set; }
 
@@ -20,6 +24,7 @@ namespace BlazorMovies.Client.Shared.Components
 
             if (result)
             {
+                await movieRepository.DeleteMovie(movie.Id);
                 Movies.Remove(movie);
             }
         }
