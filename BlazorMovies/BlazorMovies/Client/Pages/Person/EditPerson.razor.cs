@@ -1,23 +1,31 @@
-﻿using Microsoft.AspNetCore.Components;
-using System;
+﻿using BlazorMovies.Client.Repository;
+using Microsoft.AspNetCore.Components;
+using System.Threading.Tasks;
 
 namespace BlazorMovies.Client.Pages.Person
 {
     public partial class EditPerson
     {
+        [Inject]
+        public PersonRepository personRepository { get; set; }
+
+        [Inject]
+        public NavigationManager navMan { get; set; }
+
         [Parameter]
         public int PersonId { get; set; }
 
         private BlazorMovies.Shared.Entities.Person PersonItem;
 
-        protected override void OnInitialized()
+        protected async override Task OnInitializedAsync()
         {
-            PersonItem = new BlazorMovies.Shared.Entities.Person() { Name = "Vins", DateOfBirth = DateTime.Today, Biography = "Fill Bios!" };
+            PersonItem = await personRepository.GetPersonById(PersonId);
         }
 
-        private void Edit()
+        private async Task Edit()
         {
-            Console.WriteLine("Edit person hit");
+            await personRepository.UpdatePerson(PersonItem);
+            navMan.NavigateTo("person");
         }
     }
 }

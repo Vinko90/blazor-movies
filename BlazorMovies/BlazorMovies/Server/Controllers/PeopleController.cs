@@ -1,4 +1,5 @@
-﻿using BlazorMovies.Server.DataContext;
+﻿using AutoMapper;
+using BlazorMovies.Server.DataContext;
 using BlazorMovies.Server.Helpers;
 using BlazorMovies.Shared.Entities;
 using Microsoft.AspNetCore.Mvc;
@@ -16,11 +17,13 @@ namespace BlazorMovies.Server.Controllers
     {
         private readonly AppDbContext dbcontext;
         private readonly IFileStorageService fileStorageService;
+        private readonly IMapper mapper;
 
-        public PeopleController(AppDbContext context, IFileStorageService fileStorageService)
+        public PeopleController(AppDbContext context, IFileStorageService fileStorageService, IMapper mapper)
         {
             dbcontext = context;
             this.fileStorageService = fileStorageService;
+            this.mapper = mapper;
         }
 
         [HttpGet]
@@ -40,6 +43,16 @@ namespace BlazorMovies.Server.Controllers
             return await dbcontext.PersonRecords.Where(x => x.Name.Contains(searchText)).Take(5).ToListAsync();
         }
 
+        [HttpGet("{id}")]
+        public async Task<ActionResult<Person>> Get(int id)
+        {
+            var person = await dbcontext.PersonRecords.FirstOrDefaultAsync(x => x.Id == id);
+
+            if (person == null) { return NotFound(); }
+
+            return person;
+        }
+
         [HttpPost]
         public async Task<ActionResult<int>> Post(Person person)
         {
@@ -52,6 +65,25 @@ namespace BlazorMovies.Server.Controllers
             dbcontext.Add(person);
             await dbcontext.SaveChangesAsync();
             return person.Id;
+        }
+
+        [HttpPut]
+        public async Task<ActionResult> Put(Person person)
+        {
+            var personDB = await dbcontext.PersonRecords.FirstOrDefaultAsync(x => x.Id == person.Id);
+
+            if (personDB == null) { return NotFound(); }
+
+            personDB = mapper.Map(person, personDB);
+
+            if (!string.IsNullOrWhiteSpace(person.Picture))
+            {
+                var personPicture = Convert.FromBase64String(person.Picture);
+                personDB.Picture = await fileStorageService.EditFile(personPicture, "jpg", "people", personDB.Picture);
+            }
+
+            await dbcontext.SaveChangesAsync();
+            return NoContent();
         }
     }
 }
