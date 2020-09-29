@@ -1,35 +1,44 @@
-﻿using BlazorMovies.Shared.Entities;
+﻿using BlazorMovies.Client.Repository;
+using BlazorMovies.Shared.Entities;
 using Microsoft.AspNetCore.Components;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace BlazorMovies.Client.Pages.Movies
 {
     public partial class EditMovie
     {
+        [Inject]
+        public MoviesRepository moviesRepository { get; set; }
+
+        [Inject]
+        public NavigationManager navMan { get; set; }
+
         [Parameter]
         public int MovieId { get; set; }
 
         private Movie MovieItem;
 
-        private List<Genre> NotSelectedGenre = new List<Genre>()
-        {
-            new Genre(){Id = 2, Name = "Comedy"},
-            new Genre(){Id = 3, Name = "Drama"}
-        };
+        private List<Genre> NotSelectedGenre;
 
-        private List<Genre> SelectedGenre = new List<Genre>()
-        {
-            new Genre(){Id = 1, Name = "Action"}
-        };
+        private List<Genre> SelectedGenre;
 
-        protected override void OnInitialized()
+        private List<BlazorMovies.Shared.Entities.Person> SelectedActors;
+
+        protected async override Task OnInitializedAsync()
         {
-            MovieItem = new Movie() { Id = MovieId, Title = "HardCoded" };
+            var model = await moviesRepository.GetMovieForUpdateAsync(MovieId);
+
+            MovieItem = model.MovieItem;
+            NotSelectedGenre = model.NotSelectedGenres;
+            SelectedGenre = model.SelectedGenres;
+            SelectedActors = model.Actors;
         }
 
-        private void EditMovieItem()
+        private async Task EditMovieItem()
         {
-
+            await moviesRepository.UpdateMovie(MovieItem);
+            navMan.NavigateTo($"movie/{MovieId}/{MovieItem.Title.Replace(" ", " - ")}");
         }
     }
 }

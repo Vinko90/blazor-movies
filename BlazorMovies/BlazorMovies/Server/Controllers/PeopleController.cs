@@ -15,6 +15,7 @@ namespace BlazorMovies.Server.Controllers
     [Route("api/[controller]")]
     public class PeopleController : ControllerBase
     {
+        private readonly string PersonImageContainerName = "img_people";
         private readonly AppDbContext dbcontext;
         private readonly IFileStorageService fileStorageService;
         private readonly IMapper mapper;
@@ -59,7 +60,7 @@ namespace BlazorMovies.Server.Controllers
             if (!string.IsNullOrWhiteSpace(person.Picture))
             {
                 var personPicture = Convert.FromBase64String(person.Picture);
-                person.Picture = await fileStorageService.SaveFile(personPicture, "jpg", "img_people");
+                person.Picture = await fileStorageService.SaveFile(personPicture, "jpg", PersonImageContainerName);
             }
 
             dbcontext.Add(person);
@@ -79,7 +80,7 @@ namespace BlazorMovies.Server.Controllers
             if (!string.IsNullOrWhiteSpace(person.Picture))
             {
                 var personPicture = Convert.FromBase64String(person.Picture);
-                personDB.Picture = await fileStorageService.EditFile(personPicture, "jpg", "people", personDB.Picture);
+                personDB.Picture = await fileStorageService.EditFile(personPicture, "jpg", PersonImageContainerName, personDB.Picture);
             }
 
             await dbcontext.SaveChangesAsync();
