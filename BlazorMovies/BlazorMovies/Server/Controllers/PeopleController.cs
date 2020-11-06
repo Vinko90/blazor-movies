@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using BlazorMovies.Server.DataContext;
 using BlazorMovies.Server.Helpers;
+using BlazorMovies.Shared.DataTransferObjects;
 using BlazorMovies.Shared.Entities;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -28,9 +29,11 @@ namespace BlazorMovies.Server.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<List<Person>>> Get()
+        public async Task<ActionResult<List<Person>>> Get([FromQuery]PaginationDTO paginationSettings)
         {
-            return await dbcontext.PersonRecords.ToListAsync();
+            var queryable = dbcontext.PersonRecords.AsQueryable();
+            await HttpContext.InsertPaginationParametersInReponse(queryable, paginationSettings.RecordsPerPage);
+            return await queryable.Paginate(paginationSettings).ToListAsync();
         }
 
         [HttpGet("search/{searchText}")]

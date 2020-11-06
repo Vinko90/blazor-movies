@@ -1,4 +1,5 @@
 ﻿using BlazorMovies.Client.Repository;
+using BlazorMovies.Shared.DataTransferObjects;
 using Microsoft.AspNetCore.Components;
 using System;
 using System.Collections.Generic;
@@ -9,6 +10,8 @@ namespace BlazorMovies.Client.Pages.Person
     public partial class IndexPerson
     {
         private List<BlazorMovies.Shared.Entities.Person> PersonList;
+        private PaginationDTO pagination = new PaginationDTO();
+
 
         [Inject]
         protected PersonRepository personRepository { get; set; }
@@ -17,7 +20,9 @@ namespace BlazorMovies.Client.Pages.Person
         {
             try
             {
-                PersonList = await personRepository.GetPersons();
+                var paginatedResponse = await personRepository.GetPersons(pagination);
+                PersonList = paginatedResponse.Response;
+                Console.WriteLine(paginatedResponse.TotalAmountOfPages);
             }
             catch (Exception ex)
             {
@@ -28,7 +33,9 @@ namespace BlazorMovies.Client.Pages.Person
         private async Task DeletePerson(int id)
         {
             await personRepository.DeletePerson(id);
-            PersonList = await personRepository.GetPersons();
+            var paginatedResponse = await personRepository.GetPersons(pagination);
+            PersonList = paginatedResponse.Response;
+            Console.WriteLine(paginatedResponse.TotalAmountOfPages);
         }
     }
 }
