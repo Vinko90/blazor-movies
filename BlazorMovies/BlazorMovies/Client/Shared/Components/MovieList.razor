@@ -2,8 +2,8 @@
 
 <div class="movies-container">
     <GenericList List="Movies">
-        <ElementTemplate>
-            <IndividualMovie movie="context" DeleteMovie="DeleteMovie" />
+        <ElementTemplate Context="movie">
+            <IndividualMovie movie="movie" DeleteMovie="DeleteMovie" @key="movie.Id" />
         </ElementTemplate>
     </GenericList>
 </div>
