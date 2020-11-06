@@ -6,6 +6,8 @@
     <a class="btn btn-info" href="person/create">New Person</a>
 </div>
 
+<Pagination CurrentPage="@pagination.Page" TotalAmountOfPages="totalAmountOfPages" SelectedPage="SelectedPage" />
+
 <GenericList List="PersonList">
     <WholeListTemplate>
         <table class="table table-striped">

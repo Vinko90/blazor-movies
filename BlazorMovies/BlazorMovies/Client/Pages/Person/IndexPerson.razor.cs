@@ -10,8 +10,8 @@ namespace BlazorMovies.Client.Pages.Person
     public partial class IndexPerson
     {
         private List<BlazorMovies.Shared.Entities.Person> PersonList;
-        private PaginationDTO pagination = new PaginationDTO();
-
+        private PaginationDTO pagination = new PaginationDTO() { RecordsPerPage = 4 };
+        private int totalAmountOfPages;
 
         [Inject]
         protected PersonRepository personRepository { get; set; }
@@ -20,9 +20,7 @@ namespace BlazorMovies.Client.Pages.Person
         {
             try
             {
-                var paginatedResponse = await personRepository.GetPersons(pagination);
-                PersonList = paginatedResponse.Response;
-                Console.WriteLine(paginatedResponse.TotalAmountOfPages);
+                await LoadPeople();
             }
             catch (Exception ex)
             {
@@ -33,9 +31,20 @@ namespace BlazorMovies.Client.Pages.Person
         private async Task DeletePerson(int id)
         {
             await personRepository.DeletePerson(id);
+            await LoadPeople();
+        }
+
+        private async Task LoadPeople()
+        {
             var paginatedResponse = await personRepository.GetPersons(pagination);
             PersonList = paginatedResponse.Response;
-            Console.WriteLine(paginatedResponse.TotalAmountOfPages);
+            totalAmountOfPages = paginatedResponse.TotalAmountOfPages;
+        }
+
+        private async Task SelectedPage(int page)
+        {
+            pagination.Page = page;
+            await LoadPeople();
         }
     }
 }
