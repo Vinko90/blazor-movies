@@ -1,35 +1,132 @@
-﻿using BlazorMovies.Shared.Entities;
+﻿using BlazorMovies.Client.Helpers;
+using BlazorMovies.Client.Repository;
+using BlazorMovies.Shared.DataTransferObjects;
+using BlazorMovies.Shared.Entities;
+using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
 using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace BlazorMovies.Client.Pages.Movies
 {
     public partial class MovieSearch
     {
-        private string Title = "";
-        private string SelectedGenre = "0";
+        private int totalAmountOfPages;
         private List<Genre> GenresList = new List<Genre>();
-        private bool UpcomingReleases = false;
-        private bool InTheaters = false;
-        private List<Movie> MoviesList;
-        
+        private List<Movie> MoviesList = new List<Movie>();
+        private readonly FilterMoviesDTO filteredMoviesDTO = new FilterMoviesDTO() { RecordsPerPage = 10};
 
-        private void TitleKeyPress(KeyboardEventArgs e)
+        [Inject]
+        public MoviesRepository MovieRepository { get; set; }
+
+        [Inject]
+        public GenreRepository GenreRepository { get; set; }
+
+        [Inject]
+        public NavigationManager NavMan { get; set; }
+
+        protected async override Task OnInitializedAsync()
         {
-            if (e.Key == "Enter")
-            {
+            var queryStrings = NavMan.GetQueryStrings(NavMan.Uri);
+            
+            GenresList = await GenreRepository.GetGenres();
 
+            if (queryStrings != null)
+            {
+                FillFilterWithQueryStrings(queryStrings);
+            }
+
+            await LoadMovies();
+        }
+
+        private void FillFilterWithQueryStrings(Dictionary<string, string> queryStrings)
+        {
+            if (queryStrings.ContainsKey("genreId"))
+            {
+                filteredMoviesDTO.GenreId = int.Parse(queryStrings["genreId"]);
+            }
+
+            if (queryStrings.ContainsKey("title"))
+            {
+                filteredMoviesDTO.Title = queryStrings["title"];
+            }
+
+            if (queryStrings.ContainsKey("intheaters"))
+            {
+                filteredMoviesDTO.InTheaters = bool.Parse(queryStrings["intheaters"]);
+            }
+
+            if (queryStrings.ContainsKey("upcomingReleases"))
+            {
+                filteredMoviesDTO.UpcomingReleases = bool.Parse(queryStrings["upcomingReleases"]);
+            }
+
+            if (queryStrings.ContainsKey("page"))
+            {
+                filteredMoviesDTO.Page = int.Parse(queryStrings["page"]);
             }
         }
 
-        private void SearchForMovies()
+        private async Task SelectedPage(int page)
         {
-
+            filteredMoviesDTO.Page = page;
+            await LoadMovies();
         }
 
-        private void Clear()
+        private async Task LoadMovies()
         {
+            var queryString = GenerateQueryString();
+            if (!string.IsNullOrWhiteSpace(queryString))
+            {
+                queryString = $"?{queryString}";
+                NavMan.NavigateTo("movies/search" + queryString);
+            }
+            var paginatedResponse = await MovieRepository.GetMoviesFiltered(filteredMoviesDTO);
+            MoviesList = paginatedResponse.Response;
+            totalAmountOfPages = paginatedResponse.TotalAmountOfPages;
+        }
 
+        private string GenerateQueryString()
+        {
+            var defaultValue = new List<string>() { "false", "", "0" };
+
+            var queryStringsDict = new Dictionary<string, string>
+            {
+                ["genreId"] = filteredMoviesDTO.GenreId.ToString(),
+                ["title"] = filteredMoviesDTO.Title ?? "",
+                ["intheaters"] = filteredMoviesDTO.InTheaters.ToString(),
+                ["upcomingReleases"] = filteredMoviesDTO.UpcomingReleases.ToString(),
+                ["page"] = filteredMoviesDTO.Page.ToString()
+            };
+
+            //Generate query string => genreId=4&title=spider...
+
+            return string.Join("&", queryStringsDict
+                .Where(x => !defaultValue.Contains(x.Value.ToLower()))
+                .Select(x => $"{x.Key}={System.Web.HttpUtility.UrlEncode(x.Value)}").ToArray());
+        }
+
+        private async Task TitleKeyPress(KeyboardEventArgs e)
+        {
+            if (e.Key == "Enter")
+            {
+                await SearchForMovies();
+            }
+        }
+
+        private async Task SearchForMovies()
+        {
+            await LoadMovies();
+        }
+
+        private async Task Clear()
+        {
+            filteredMoviesDTO.Title = "";
+            filteredMoviesDTO.GenreId = 0;
+            filteredMoviesDTO.UpcomingReleases = false;
+            filteredMoviesDTO.InTheaters = false;
+            await SearchForMovies();
         }
     }
 }

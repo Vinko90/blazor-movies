@@ -6,6 +6,7 @@ using BlazorMovies.Shared.Entities;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -78,6 +79,43 @@ namespace BlazorMovies.Server.Controllers
 
             return model;
         }
+
+        [HttpPost("filter")]
+        public async Task<ActionResult<List<Movie>>> Filter(FilterMoviesDTO filter)
+        {
+            var moviesQueryable = dbcontext.MoviesRecords.AsQueryable();
+
+            if (!string.IsNullOrWhiteSpace(filter.Title))
+            {
+                moviesQueryable = moviesQueryable
+                    .Where(x => x.Title.Contains(filter.Title));
+            }
+
+            if (filter.InTheaters)
+            {
+                moviesQueryable = moviesQueryable.Where(x => x.InTheaters);
+            }
+
+            if (filter.UpcomingReleases)
+            {
+                var today = DateTime.Today;
+                moviesQueryable = moviesQueryable.Where(x => x.ReleaseDate > today);
+            }
+
+            if (filter.GenreId != 0)
+            {
+                moviesQueryable = moviesQueryable
+                    .Where(x => x.GenresList.Select(y => y.GenreId)
+                    .Contains(filter.GenreId));
+            }
+
+            await HttpContext.InsertPaginationParametersInReponse(moviesQueryable, filter.RecordsPerPage);
+
+            var movies = await moviesQueryable.Paginate(filter.Pagination).ToListAsync();
+
+            return movies;
+        }
+
 
         [HttpGet("update/{id}")]
         public async Task<ActionResult<MovieUpdateDTO>> PutGet(int id)
