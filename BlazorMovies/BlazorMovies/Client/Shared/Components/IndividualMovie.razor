@@ -4,7 +4,11 @@
     </a>
     <p><a href="@movieURL">@movie.TitleBrief</a></p>
     <div>
-        <a class="btn btn-info" href="/movies/edit/@movie.Id">Edit</a>
-        <button type="button" class="btn btn-danger" @onclick="@(() => DeleteMovie.InvokeAsync(movie))">Delete</button>
+        <AuthorizeView>
+            <Authorized>
+                <a class="btn btn-info" href="/movies/edit/@movie.Id">Edit</a>
+                <button type="button" class="btn btn-danger" @onclick="@(() => DeleteMovie.InvokeAsync(movie))">Delete</button>
+            </Authorized>
+        </AuthorizeView>     
     </div>
 </div>

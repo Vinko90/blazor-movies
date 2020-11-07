@@ -1,5 +1,6 @@
 ﻿using BlazorMovies.Client.Repository;
 using BlazorMovies.Shared.DataTransferObjects;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Components;
 using System;
 using System.Collections.Generic;
@@ -7,6 +8,7 @@ using System.Threading.Tasks;
 
 namespace BlazorMovies.Client.Pages.Person
 {
+    [Authorize]
     public partial class IndexPerson
     {
         private List<BlazorMovies.Shared.Entities.Person> PersonList;

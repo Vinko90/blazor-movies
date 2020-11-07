@@ -1,5 +1,6 @@
 ﻿using BlazorMovies.Client.Repository;
 using BlazorMovies.Shared.Entities;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Components;
 using System;
 using System.Collections.Generic;
@@ -7,6 +8,7 @@ using System.Threading.Tasks;
 
 namespace BlazorMovies.Client.Pages.Movies
 {
+    [Authorize]
     public partial class CreateMovie
     {
         [Inject]

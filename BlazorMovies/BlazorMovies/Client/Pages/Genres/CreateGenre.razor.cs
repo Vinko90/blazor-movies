@@ -1,11 +1,13 @@
 ﻿using BlazorMovies.Client.Repository;
 using BlazorMovies.Shared.Entities;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Components;
 using System;
 using System.Threading.Tasks;
 
 namespace BlazorMovies.Client.Pages.Genres
 {
+    [Authorize]
     public partial class CreateGenre
     {
         private Genre genre = new Genre();

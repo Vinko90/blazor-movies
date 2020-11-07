@@ -1,10 +1,12 @@
 ﻿using BlazorMovies.Client.Repository;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Components;
 using System;
 using System.Threading.Tasks;
 
 namespace BlazorMovies.Client.Pages.Person
 {
+    [Authorize]
     public partial class CreatePerson
     {
         private BlazorMovies.Shared.Entities.Person personItem = new BlazorMovies.Shared.Entities.Person();

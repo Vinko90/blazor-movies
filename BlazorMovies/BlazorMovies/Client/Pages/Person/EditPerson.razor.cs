@@ -1,9 +1,11 @@
 ﻿using BlazorMovies.Client.Repository;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Components;
 using System.Threading.Tasks;
 
 namespace BlazorMovies.Client.Pages.Person
 {
+    [Authorize]
     public partial class EditPerson
     {
         [Inject]
