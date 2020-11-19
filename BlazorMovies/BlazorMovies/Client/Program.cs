@@ -33,6 +33,7 @@ namespace BlazorMovies.Client
             services.AddScoped<GenreRepository>();
             services.AddScoped<PersonRepository>();
             services.AddScoped<MoviesRepository>();
+            services.AddScoped<AccountsRepository>();
             services.AddFileReaderService(options => options.InitializeOnFirstCall = true);
             
             services.AddAuthorizationCore();
