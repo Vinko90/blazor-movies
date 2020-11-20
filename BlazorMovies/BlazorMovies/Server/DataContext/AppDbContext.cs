@@ -24,5 +24,6 @@ namespace BlazorMovies.Server.DataContext
         public DbSet<Person> PersonRecords { get; set; }
         public DbSet<MoviesActors> MoviesActorsRecords { get; set; }
         public DbSet<MoviesGenres> MoviesGenresRecords { get; set; }
+        public DbSet<MovieRating> MovieRatings { get; set; }
     }
 }

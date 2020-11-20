@@ -5,6 +5,7 @@ using BlazorMovies.Shared.DataTransferObjects;
 using BlazorMovies.Shared.Entities;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -23,12 +24,14 @@ namespace BlazorMovies.Server.Controllers
         private readonly AppDbContext dbcontext;
         private readonly IFileStorageService fileStorageService;
         private readonly IMapper mapper;
+        private readonly UserManager<IdentityUser> userManager;
 
-        public MoviesController(AppDbContext context, IFileStorageService fileStorageService, IMapper mapper)
+        public MoviesController(AppDbContext context, IFileStorageService fileStorageService, IMapper mapper, UserManager<IdentityUser> userManager)
         {
             dbcontext = context;
             this.fileStorageService = fileStorageService;
             this.mapper = mapper;
+            this.userManager = userManager;
         }
 
         [HttpGet]
@@ -68,19 +71,44 @@ namespace BlazorMovies.Server.Controllers
                 return NotFound();
             }
 
+            var voteAverage = 0.0;
+            var userRating = 0;
+
+            if (await dbcontext.MovieRatings.AnyAsync(x => x.MovieId == id))
+            {
+                voteAverage = await dbcontext.MovieRatings.Where(x => x.MovieId == id).AverageAsync(x => x.Rate);
+
+                if (HttpContext.User.Identity.IsAuthenticated)
+                {
+                    var user = await userManager.FindByEmailAsync(HttpContext.User.Identity.Name);
+                    var userId = user.Id;
+
+                    var userVoteFromDb = await dbcontext.MovieRatings.FirstOrDefaultAsync(x => x.MovieId == id && x.UserId == userId);
+
+                    if (userVoteFromDb != null)
+                    {
+                        userRating = userVoteFromDb.Rate;
+                    }
+                }
+            }
+
             movie.ActorList = movie.ActorList.OrderBy(x => x.Order).ToList();
 
-            var model = new DetailsMovieDTO();
-            model.MovieItem = movie;
-            model.Genres = movie.GenresList.Select(x => x.Genre).ToList();
-            model.Actors = movie.ActorList.Select(x =>
-                new Person
-                {
-                    Name = x.Person.Name,
-                    Picture = x.Person.Picture,
-                    Character = x.CharacterName,
-                    Id = x.PersonId
-                }).ToList();
+            var model = new DetailsMovieDTO
+            {
+                MovieItem = movie,
+                Genres = movie.GenresList.Select(x => x.Genre).ToList(),
+                Actors = movie.ActorList.Select(x =>
+                    new Person
+                    {
+                        Name = x.Person.Name,
+                        Picture = x.Person.Picture,
+                        Character = x.CharacterName,
+                        Id = x.PersonId
+                    }).ToList(),
+                UserVote = userRating,
+                AverageVote = voteAverage
+            };
 
             return model;
         }

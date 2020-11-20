@@ -20,10 +20,13 @@ else
             <a href="movies/search?genreId=@model.Genres[i].Id">@model.Genres[i].Name</a>
         }
     }
+
     <text> | </text><span>@model.MovieItem.ReleaseDate.Value.ToString("dd MMM yyyy")</span>
+    <text> | Average: </text> @model.AverageVote.ToString("0.#") <text>/5 | Your vote: </text>
+    <Rating MaximumRating="5" SelectedRating="model.UserVote" OnVote="OnVote" />
 
     <div style="display: flex">
-        <span style="display: inline-block; margin-right: 5px;"><img src="@model.MovieItem.Poster" style="width: 225px; height: 315px"/></span>
+        <span style="display: inline-block; margin-right: 5px;"><img src="@model.MovieItem.Poster" style="width: 225px; height: 315px" /></span>
         <iframe width="560" height="315" src="https://www.youtube.com/embed/@model.MovieItem.Trailer" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
     </div>
     <div style="margin-top: 10px;">
