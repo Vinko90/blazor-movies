@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace BlazorMovies.Client.Pages.Genres
 {
-    [Authorize]
+    [Authorize(Roles = "Admin")]
     public partial class EditGenre
     {
         [Inject]

@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace BlazorMovies.Client.Pages.Person
 {
-    [Authorize]
+    [Authorize(Roles = "Admin")]
     public partial class EditPerson
     {
         [Inject]

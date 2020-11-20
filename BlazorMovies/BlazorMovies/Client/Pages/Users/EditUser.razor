@@ -1,0 +1,16 @@
+﻿@page "/users/edit/{userId}"
+
+<h3>Edit User</h3>
+
+<div class="form-inline">
+    <select class="form-control mb-2 mr-sm-2" @bind="selectedRole">
+        <option value="0">--Select a role--</option>
+        @foreach (var role in roles)
+        {
+            <option value="@role.RoleName">@role.RoleName</option>
+        }
+    </select>
+
+    <button class="btn btn-info mb-2 mr-sm-2" @onclick="AssignRole">Assign Role</button>
+    <button class="btn btn-danger mb-2 mr-sm-2" @onclick="RemoveRole">Remove Role</button>
+</div>

@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace BlazorMovies.Client.Pages.Movies
 {
-    [Authorize]
+    [Authorize(Roles = "Admin")]
     public partial class CreateMovie
     {
         [Inject]

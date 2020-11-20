@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace BlazorMovies.Client.Pages.Person
 {
-    [Authorize]
+    [Authorize(Roles = "Admin")]
     public partial class CreatePerson
     {
         private BlazorMovies.Shared.Entities.Person personItem = new BlazorMovies.Shared.Entities.Person();

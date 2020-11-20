@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace BlazorMovies.Client.Pages.Genres
 {
-    [Authorize]
+    [Authorize(Roles = "Admin")]
     public partial class IndexGenres
     {
         private List<Genre> GenresList;

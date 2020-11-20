@@ -1,0 +1,31 @@
+﻿@page "/users"
+
+<h3>Users</h3>
+
+<Pagination CurrentPage="@paginationDTO.Page" SelectedPage="SelectedPage" TotalAmountOfPages="totalAmountOfPages" />
+
+<GenericList List="Users">
+    <WholeListTemplate>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th></th>
+                    <th>User</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var user in Users)
+                {
+                    <tr>
+                        <td>
+                            <a href="/users/edit/@user.UserId" class="btn btn-success">Edit</a>
+                        </td>
+                        <td>
+                            @user.Email
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </WholeListTemplate>
+</GenericList>

@@ -39,7 +39,7 @@ namespace BlazorMovies.Server.Controllers
             var result = await _userManager.CreateAsync(user, model.Password);
             if (result.Succeeded)
             {
-                return BuildToken(model);
+                return await BuildToken(model);
             }
             else
             {
@@ -54,7 +54,7 @@ namespace BlazorMovies.Server.Controllers
 
             if (result.Succeeded)
             {
-                return BuildToken(userInfo);
+                return await BuildToken(userInfo);
             }
             else
             {
@@ -64,13 +64,17 @@ namespace BlazorMovies.Server.Controllers
 
         #region Internal
 
-        private UserToken BuildToken(UserInfo userInfo)
+        private async Task<UserToken> BuildToken(UserInfo userInfo)
         {
             var claims = new List<Claim>()
             {
                 new Claim(ClaimTypes.Name, userInfo.Email),
                 new Claim(ClaimTypes.Email, userInfo.Email)
             };
+
+            var identityUser = await _userManager.FindByEmailAsync(userInfo.Email);
+            var claimsDb = await _userManager.GetClaimsAsync(identityUser);
+            claims.AddRange(claimsDb);
 
             var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["jwt:key"]));
             var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
