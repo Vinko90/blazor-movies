@@ -1,4 +1,5 @@
-﻿using BlazorMovies.Client.Repository;
+﻿using BlazorMovies.Client.Helpers.SweetAlert;
+using BlazorMovies.Client.Repository;
 using BlazorMovies.Shared.DataTransferObjects;
 using BlazorMovies.Shared.Entities;
 using Microsoft.AspNetCore.Components;
@@ -8,6 +9,9 @@ namespace BlazorMovies.Client.Pages.Movies
 {
     public partial class DetailsMovie
     {
+        [Inject]
+        protected IDisplayMessage displayMessage { get; set; }
+
         [Inject]
         public MoviesRepository movieRepository { get; set; }
 
@@ -32,6 +36,7 @@ namespace BlazorMovies.Client.Pages.Movies
             model.UserVote = selectedRate;
             MovieRating movieRating = new MovieRating() { Rate = selectedRate, MovieId = MovieId };
             await ratingRepository.Vote(movieRating);
+            await displayMessage.DisplaySuccess("Your vote has been received!");
         }
     }
 }
