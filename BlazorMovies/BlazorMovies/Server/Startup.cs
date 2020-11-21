@@ -9,6 +9,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using System.IdentityModel.Tokens.Jwt;
 
 namespace BlazorMovies.Server
 {
@@ -16,6 +17,7 @@ namespace BlazorMovies.Server
     {
         public Startup(IConfiguration configuration)
         {
+            JwtSecurityTokenHandler.DefaultInboundClaimTypeMap.Clear();
             Configuration = configuration;
         }
 
@@ -43,7 +45,8 @@ namespace BlazorMovies.Server
                 .AddEntityFrameworkStores<AppDbContext>();
 
             services.AddIdentityServer()
-                .AddApiAuthorization<IdentityUser, AppDbContext>();
+                .AddApiAuthorization<IdentityUser, AppDbContext>()
+                .AddProfileService<IdentityProfileService>();
 
             services.AddAuthentication()
                 .AddIdentityServerJwt();
