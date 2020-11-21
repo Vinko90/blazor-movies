@@ -17,6 +17,11 @@ namespace BlazorMovies.Client.Helpers
             await js.InvokeVoidAsync("my_function", message);
         }
 
+        public static async ValueTask InitializeInactivityTimer<T>(this IJSRuntime js, DotNetObjectReference<T> dotNetObjectReference) where T : class
+        {
+            await js.InvokeVoidAsync("initializeInactivityTimer", dotNetObjectReference);
+        }
+
         #region JWT Support
 
         public static ValueTask<object> SetInLocalStorage(this IJSRuntime js, string key, string content)
