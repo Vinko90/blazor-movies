@@ -3,7 +3,6 @@ using BlazorMovies.Server.DataContext;
 using BlazorMovies.Server.Helpers;
 using BlazorMovies.Shared.DataTransferObjects;
 using BlazorMovies.Shared.Entities;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -16,7 +15,7 @@ namespace BlazorMovies.Server.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
-    [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Roles = "Admin")]
+    [Authorize(Roles = "Admin")]
     public class PeopleController : ControllerBase
     {
         private readonly string PersonImageContainerName = "img_people";

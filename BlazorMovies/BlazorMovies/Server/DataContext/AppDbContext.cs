@@ -1,13 +1,16 @@
 ﻿using BlazorMovies.Shared.Entities;
-using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using IdentityServer4.EntityFramework.Options;
+using Microsoft.AspNetCore.ApiAuthorization.IdentityServer;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Options;
 
 namespace BlazorMovies.Server.DataContext
 {
-    public class AppDbContext : IdentityDbContext
+    public class AppDbContext : ApiAuthorizationDbContext<IdentityUser>
     {
-        public AppDbContext(DbContextOptions<AppDbContext> options) 
-            : base(options)
+        public AppDbContext(DbContextOptions<AppDbContext> options, IOptions<OperationalStoreOptions> operationalStoreOptions) 
+            : base(options, operationalStoreOptions)
         {
         }
 
