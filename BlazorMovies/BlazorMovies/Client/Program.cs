@@ -51,6 +51,8 @@ namespace BlazorMovies.Client
                 (
                     provider => provider.GetRequiredService<JWTAuthenticationStateProvider>()
                 );
+
+            services.AddScoped<TokenRenewer>();
         }
     }
 }

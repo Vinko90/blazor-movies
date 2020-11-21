@@ -22,7 +22,7 @@ namespace BlazorMovies.Client.Pages.Auth
         private async Task LoginUser()
         {
             var userToken = await accountsRepository.Login(userInfo);
-            await loginService.Login(userToken.Token);
+            await loginService.Login(userToken);
             navMan.NavigateTo("");
         }
     }
