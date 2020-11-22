@@ -1,5 +1,5 @@
 using AutoMapper;
-using BlazorMovies.Server.DataContext;
+using BlazorMovies.DataAccess;
 using BlazorMovies.Server.Helpers;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Builder;

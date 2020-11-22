@@ -1,7 +1,7 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore.Migrations;
 
-namespace BlazorMovies.Server.Migrations
+namespace BlazorMovies.DataAccess.Migrations
 {
     public partial class MoveToIdentityServer4 : Migration
     {

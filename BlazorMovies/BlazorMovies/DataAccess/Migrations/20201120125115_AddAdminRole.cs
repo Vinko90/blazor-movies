@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore.Migrations;
 
-namespace BlazorMovies.Server.Migrations
+namespace BlazorMovies.DataAccess.Migrations
 {
     public partial class AddAdminRole : Migration
     {

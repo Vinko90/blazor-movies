@@ -22,6 +22,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Client\BlazorMovies.Client.csproj" />
+    <ProjectReference Include="..\DataAccess\BlazorMovies.DataAccess.csproj" />
     <ProjectReference Include="..\Shared\BlazorMovies.Shared.csproj" />
   </ItemGroup>
 

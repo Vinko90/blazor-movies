@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 
-namespace BlazorMovies.Server.DataContext
+namespace BlazorMovies.DataAccess
 {
     public class AppDbContext : ApiAuthorizationDbContext<IdentityUser>
     {

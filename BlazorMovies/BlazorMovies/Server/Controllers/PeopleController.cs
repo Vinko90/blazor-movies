@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using BlazorMovies.Server.DataContext;
+using BlazorMovies.DataAccess;
 using BlazorMovies.Server.Helpers;
 using BlazorMovies.Shared.DataTransferObjects;
 using BlazorMovies.Shared.Entities;
