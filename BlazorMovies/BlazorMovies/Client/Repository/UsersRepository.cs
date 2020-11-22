@@ -1,12 +1,13 @@
 ﻿using BlazorMovies.Client.Helpers;
 using BlazorMovies.Shared.DataTransferObjects;
+using BlazorMovies.Shared.Repositories;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace BlazorMovies.Client.Repository
 {
-    public class UsersRepository
+    public class UsersRepository : IUsersRepository
     {
         private readonly string baseURL = "api/users";
         private readonly IHttpService httpService;

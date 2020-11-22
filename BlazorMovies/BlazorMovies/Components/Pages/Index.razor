@@ -1,0 +1,18 @@
+﻿@page "/"
+@page "/index"
+
+<div>
+    <h3>In Theaters</h3>
+    <MovieList Movies="InTheaters" />
+</div>
+
+<div>
+    <h3>Upcoming Releases</h3>
+    <MovieList Movies="UpcomingReleases" />
+</div>
+
+<CustomTypeahead SearchMethod="SearchMethod">
+    <ResultTemplate>
+        @context
+    </ResultTemplate>
+</CustomTypeahead>

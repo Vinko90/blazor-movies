@@ -1,6 +1,7 @@
 ﻿using BlazorMovies.Client.Helpers;
 using BlazorMovies.Shared.DataTransferObjects;
 using BlazorMovies.Shared.Entities;
+using BlazorMovies.Shared.Repositories;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace BlazorMovies.Client.Repository
 {
-    public class MoviesRepository
+    public class MoviesRepository : IMoviesRepository
     {
         private readonly IHttpService httpService;
 

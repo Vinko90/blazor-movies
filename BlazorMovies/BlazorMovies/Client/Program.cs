@@ -1,8 +1,9 @@
 using System;
 using System.Threading.Tasks;
 using BlazorMovies.Client.Helpers;
-using BlazorMovies.Client.Helpers.SweetAlert;
 using BlazorMovies.Client.Repository;
+using BlazorMovies.Components.Helpers;
+using BlazorMovies.Shared.Repositories;
 using Microsoft.AspNetCore.Components.WebAssembly.Authentication;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 using Microsoft.Extensions.DependencyInjection;
@@ -34,11 +35,11 @@ namespace BlazorMovies.Client
 
             //Custom Added
             services.AddScoped<IHttpService, HttpService>();
-            services.AddScoped<GenreRepository>();
-            services.AddScoped<PersonRepository>();
-            services.AddScoped<MoviesRepository>();
-            services.AddScoped<RatingRepository>();
-            services.AddScoped<UsersRepository>();
+            services.AddScoped<IGenreRepository, GenreRepository>();
+            services.AddScoped<IPersonRepository, PersonRepository>();
+            services.AddScoped<IMoviesRepository, MoviesRepository>();
+            services.AddScoped<IRatingRepository, RatingRepository>();
+            services.AddScoped<IUsersRepository, UsersRepository>();
             services.AddScoped<IDisplayMessage, DisplayMessage>();
             
             services.AddFileReaderService(options => options.InitializeOnFirstCall = true);

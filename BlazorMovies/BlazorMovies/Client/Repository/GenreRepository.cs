@@ -1,12 +1,13 @@
 ﻿using BlazorMovies.Client.Helpers;
 using BlazorMovies.Shared.Entities;
+using BlazorMovies.Shared.Repositories;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace BlazorMovies.Client.Repository
 {
-    public class GenreRepository
+    public class GenreRepository : IGenreRepository
     {
         private readonly IHttpService httpService;
 
@@ -60,7 +61,7 @@ namespace BlazorMovies.Client.Repository
                 throw new ApplicationException(await response.GetBody());
             }
         }
-        
+
         public async Task DeleteGenre(int id)
         {
             var response = await httpService.Delete($"{url}/{id}");

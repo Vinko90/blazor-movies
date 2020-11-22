@@ -1,13 +1,14 @@
 ﻿using BlazorMovies.Client.Helpers;
 using BlazorMovies.Shared.DataTransferObjects;
 using BlazorMovies.Shared.Entities;
+using BlazorMovies.Shared.Repositories;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace BlazorMovies.Client.Repository
 {
-    public class PersonRepository
+    public class PersonRepository : IPersonRepository
     {
         private readonly IHttpService httpService;
 
