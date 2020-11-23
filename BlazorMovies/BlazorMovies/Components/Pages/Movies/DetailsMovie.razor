@@ -1,9 +1,10 @@
 ﻿@page "/movie/{MovieId:int}"
 @page "/movie/{MovieId:int}/{MovieName}"
+@inject IStringLocalizer<Resource> localizer
 
 @if (model == null)
 {
-    <p>Loading....</p>
+    <p>@localizer["loading"]</p>
 }
 else
 {
@@ -22,7 +23,7 @@ else
     }
 
     <text> | </text><span>@model.MovieItem.ReleaseDate.Value.ToString("dd MMM yyyy")</span>
-    <text> | Average: </text> @model.AverageVote.ToString("0.#") <text>/5 | Your vote: </text>
+    <text> | @localizer["average"]: </text> @model.AverageVote.ToString("0.#") <text>/5 | @localizer["yourVote"]: </text>
     <Rating MaximumRating="5" SelectedRating="model.UserVote" OnVote="OnVote" />
 
     <div style="display: flex">
@@ -30,13 +31,13 @@ else
         <iframe width="560" height="315" src="https://www.youtube.com/embed/@model.MovieItem.Trailer" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
     </div>
     <div style="margin-top: 10px;">
-        <h3>Summary</h3>
+        <h3>@localizer["summary"]</h3>
         <div>
             <RenderMarkdown MarkdownContent="@model.MovieItem.Summary" />
         </div>
     </div>
     <div style="margin-top: 10px;">
-        <h3>Actors</h3>
+        <h3>@localizer["actors"]</h3>
         <div style="display: flex; flex-direction: column">
             @foreach (var actor in model.Actors)
             {

@@ -10,12 +10,33 @@
     <PackageReference Include="Markdig" Version="0.22.0" />
     <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" Version="3.2.1" />
     <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.Authentication" Version="3.2.1" />
+    <PackageReference Include="Microsoft.Extensions.Localization" Version="3.1.10" />
     <PackageReference Include="Tewr.Blazor.FileReader" Version="2.1.0.20274" />
   </ItemGroup>
 
 
   <ItemGroup>
     <ProjectReference Include="..\Shared\BlazorMovies.Shared.csproj" />
+  </ItemGroup>
+
+
+  <ItemGroup>
+    <Compile Update="Resources\Resource.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resource.resx</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
+
+  <ItemGroup>
+    <EmbeddedResource Update="Resources\Resource.it.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resources\Resource.resx">
+      <LastGenOutput>Resource.Designer.cs</LastGenOutput>
+      <Generator>PublicResXFileCodeGenerator</Generator>
+    </EmbeddedResource>
   </ItemGroup>
 
 </Project>

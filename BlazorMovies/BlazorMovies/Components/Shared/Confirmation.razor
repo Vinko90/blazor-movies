@@ -1,4 +1,6 @@
-﻿@if (DisplayConfirmation)
+﻿@inject IStringLocalizer<Resource> localizer
+
+@if (DisplayConfirmation)
 {
     <div class="modal-backdrop show"></div>
 
@@ -17,8 +19,8 @@
                     @ChildContent
                 </div>
                 <div class="modal-footer">
-                    <button @onclick="onCancel" type="button" class="btn btn-secondary">Cancel</button>
-                    <button @onclick="onConfirm" type="button" class="btn btn-primary">Ok</button>
+                    <button @onclick="onCancel" type="button" class="btn btn-secondary">@localizer["cancel"]</button>
+                    <button @onclick="onConfirm" type="button" class="btn btn-primary">@localizer["ok"]</button>
                 </div>
             </div>
         </div>

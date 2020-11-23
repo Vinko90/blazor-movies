@@ -1,4 +1,6 @@
-﻿<div class="individual-movie-container">
+﻿@inject IStringLocalizer<Resource> localizer
+
+<div class="individual-movie-container">
     <a href="@movieURL">
         <img src="@movie.Poster" alt="Poster" class="movie-poster" />
     </a>
@@ -6,8 +8,8 @@
     <div>
         <AuthorizeView>
             <Authorized>
-                <a class="btn btn-info" href="/movies/edit/@movie.Id">Edit</a>
-                <button type="button" class="btn btn-danger" @onclick="@(() => DeleteMovie.InvokeAsync(movie))">Delete</button>
+                <a class="btn btn-info" href="/movies/edit/@movie.Id">@localizer["edit"]</a>
+                <button type="button" class="btn btn-danger" @onclick="@(() => DeleteMovie.InvokeAsync(movie))">@localizer["delete"]</button>
             </Authorized>
         </AuthorizeView>     
     </div>

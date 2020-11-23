@@ -1,16 +1,17 @@
 ﻿@page "/users/edit/{userId}"
+@inject IStringLocalizer<Resource> localizer
 
-<h3>Edit User</h3>
+<h3>@localizer["editUser"]</h3>
 
 <div class="form-inline">
     <select class="form-control mb-2 mr-sm-2" @bind="selectedRole">
-        <option value="0">--Select a role--</option>
+        <option value="0">@localizer["lookupRole"]</option>
         @foreach (var role in roles)
         {
             <option value="@role.RoleName">@role.RoleName</option>
         }
     </select>
 
-    <button class="btn btn-info mb-2 mr-sm-2" @onclick="AssignRole">Assign Role</button>
-    <button class="btn btn-danger mb-2 mr-sm-2" @onclick="RemoveRole">Remove Role</button>
+    <button class="btn btn-info mb-2 mr-sm-2" @onclick="AssignRole">@localizer["assignRole"]</button>
+    <button class="btn btn-danger mb-2 mr-sm-2" @onclick="RemoveRole">@localizer["removeRole"]</button>
 </div>

@@ -1,13 +1,14 @@
 ﻿@page "/"
 @page "/index"
+@inject IStringLocalizer<Resource> localizer
 
 <div>
-    <h3>In Theaters</h3>
+    <h3>@localizer["inTheaters"]</h3>
     <MovieList Movies="InTheaters" />
 </div>
 
 <div>
-    <h3>Upcoming Releases</h3>
+    <h3>@localizer["upcomingRelease"]</h3>
     <MovieList Movies="UpcomingReleases" />
 </div>
 

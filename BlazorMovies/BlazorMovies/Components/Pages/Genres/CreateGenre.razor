@@ -1,5 +1,6 @@
 ﻿@page "/genre/create"
+@inject IStringLocalizer<Resource> localizer
 
-<h3>Create Genre</h3>
+<h3>@localizer["createGenreHeader"]</h3>
 
 <GenreForm GenreItem="genre" OnValidGenreSubmit="Create" />

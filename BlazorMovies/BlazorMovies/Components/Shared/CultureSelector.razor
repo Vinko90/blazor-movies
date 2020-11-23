@@ -1,0 +1,8 @@
+﻿@*<span class="oi oi-globe" aria-hidden="true"></span>*@
+
+<select @bind="Culture">
+    @foreach (var item in cultures)
+    {
+        <option value="@item">@item.DisplayName</option>
+    }
+</select>

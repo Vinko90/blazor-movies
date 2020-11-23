@@ -1,12 +1,14 @@
-﻿<EditForm Model="GenreItem" OnValidSubmit="OnValidGenreSubmit">
+﻿@inject IStringLocalizer<Resource> localizer
+
+<EditForm Model="GenreItem" OnValidSubmit="OnValidGenreSubmit">
     <DataAnnotationsValidator />
     <div class="form-group">
-        <label>Name:</label>
+        <label>@localizer["name"]:</label>
         <div>
             <InputText class="form-control" @bind-Value="GenreItem.Name" />
             <ValidationMessage For="@(() => GenreItem.Name)" />
         </div>
     </div>
 
-    <button class="btn btn-success" type="submit">Save Changes</button>
+    <button class="btn btn-success" type="submit">@localizer["saveChanges"]</button>
 </EditForm>

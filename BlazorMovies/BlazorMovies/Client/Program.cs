@@ -1,4 +1,5 @@
 using System;
+using System.Globalization;
 using System.Threading.Tasks;
 using BlazorMovies.Client.Helpers;
 using BlazorMovies.Client.Repository;
@@ -7,6 +8,7 @@ using BlazorMovies.Shared.Repositories;
 using Microsoft.AspNetCore.Components.WebAssembly.Authentication;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.JSInterop;
 using Tewr.Blazor.FileReader;
 
 namespace BlazorMovies.Client
@@ -25,8 +27,27 @@ namespace BlazorMovies.Client
 
             //Configure custom services
             ConfigureServices(builder.Services);
-            
-            await builder.Build().RunAsync();
+
+            var host = builder.Build();
+
+            var js = host.Services.GetRequiredService<IJSRuntime>();
+            var culture = await js.InvokeAsync<string>("getFromLocalStorage", "culture");
+
+            CultureInfo selectedCulture;
+
+            if (culture == null)
+            {
+                selectedCulture = new CultureInfo("en-US");             
+            }
+            else
+            {
+                selectedCulture = new CultureInfo(culture);
+            }
+
+            CultureInfo.DefaultThreadCurrentCulture = selectedCulture;
+            CultureInfo.DefaultThreadCurrentUICulture = selectedCulture;
+
+            await host.RunAsync();
         }
 
         private static void ConfigureServices(IServiceCollection services)
@@ -34,6 +55,7 @@ namespace BlazorMovies.Client
             services.AddOptions();
 
             //Custom Added
+            services.AddLocalization();
             services.AddScoped<IHttpService, HttpService>();
             services.AddScoped<IGenreRepository, GenreRepository>();
             services.AddScoped<IPersonRepository, PersonRepository>();

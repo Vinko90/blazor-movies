@@ -1,5 +1,6 @@
 ﻿@*Modification from Chris Sainty's typehead component*@
 @typeparam TItem
+@inject IStringLocalizer<Resource> localizer
 
 <div class="blazored-typeahead">
     <div class="blazored-typeahead-controls">
@@ -16,7 +17,7 @@
     {
         <div class="blazored-typeahead-results">
             <div class="blazored-typeahead-result">
-                <span>Loading...</span>
+                <span>@localizer["loading"]</span>
             </div>
         </div>
     }
@@ -45,7 +46,7 @@
             else
             {
                 <div class="blazored-typeahead-notfound">
-                    No Results Found
+                    @localizer["noResultsFound"]
                 </div>
             }
         </div>

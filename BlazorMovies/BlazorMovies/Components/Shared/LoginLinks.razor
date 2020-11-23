@@ -1,10 +1,12 @@
-﻿<AuthorizeView>
+﻿@inject IStringLocalizer<Resource> localizer
+
+<AuthorizeView>
     <Authorized>
-        <span>Hello, @context.User.Identity.Name!</span>
+        <span>@localizer["hello"], @context.User.Identity.Name</span>
         <button class="nav-link btn btn-link" @onclick="BeginSignOut">Logout</button>
     </Authorized>
     <NotAuthorized>
-        <a href="authentication/register">Register</a>
+        <a href="authentication/register">@localizer["register"]</a>
         <a href="authentication/login" class="nav-link btn btn-link">Login</a>
     </NotAuthorized>
 </AuthorizeView>

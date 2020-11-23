@@ -13,6 +13,14 @@ function dotNetInstanceInvocation(dotnetHelper) {
     dotnetHelper.invokeMethodAsync("IncrementCountAsync");
 }
 
+function setInLocalStorage(key, value) {
+    localStorage[key] = value;
+}
+
+function getFromLocalStorage(key) {
+    return localStorage[key];
+}
+
 function initializeInactivityTimer(dotnetHelper) {
     var timer;
     document.onmousemove = resetTimer;

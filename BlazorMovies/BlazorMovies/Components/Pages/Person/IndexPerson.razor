@@ -1,9 +1,10 @@
 ﻿@page "/person"
+@inject IStringLocalizer<Resource> localizer
 
-<h3>Person View</h3>
+<h3>@localizer["indexPersonHeader"]</h3>
 
 <div class="form-group">
-    <a class="btn btn-info" href="person/create">New Person</a>
+    <a class="btn btn-info" href="person/create">@localizer["newPerson"]</a>
 </div>
 
 <Pagination CurrentPage="@pagination.Page" TotalAmountOfPages="totalAmountOfPages" SelectedPage="SelectedPage" />
@@ -14,7 +15,7 @@
             <thead>
                 <tr>
                     <th></th>
-                    <th>Name</th>
+                    <th>@localizer["name"]</th>
                 </tr>
             </thead>
             <tbody>
@@ -22,8 +23,8 @@
                 {
                     <tr>
                         <td>
-                            <a class="btn btn-success" href="/person/edit/@item.Id">Edit</a>
-                            <button class="btn btn-danger" @onclick="(() => DeletePerson(item.Id))">Delete</button>
+                            <a class="btn btn-success" href="/person/edit/@item.Id">@localizer["edit"]</a>
+                            <button class="btn btn-danger" @onclick="(() => DeletePerson(item.Id))">@localizer["delete"]</button>
                         </td>
                         <td>@item.Name</td>
                     </tr>

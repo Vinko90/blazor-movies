@@ -1,6 +1,7 @@
 ﻿@page "/users"
+@inject IStringLocalizer<Resource> localizer
 
-<h3>Users</h3>
+<h3>@localizer["users"]</h3>
 
 <Pagination CurrentPage="@paginationDTO.Page" SelectedPage="SelectedPage" TotalAmountOfPages="totalAmountOfPages" />
 
@@ -10,7 +11,7 @@
             <thead>
                 <tr>
                     <th></th>
-                    <th>User</th>
+                    <th>@localizer["user"]</th>
                 </tr>
             </thead>
             <tbody>
@@ -18,7 +19,7 @@
                 {
                     <tr>
                         <td>
-                            <a href="/users/edit/@user.UserId" class="btn btn-success">Edit</a>
+                            <a href="/users/edit/@user.UserId" class="btn btn-success">@localizer["edit"]</a>
                         </td>
                         <td>
                             @user.Email

@@ -1,18 +1,19 @@
 ﻿@page "/movies/search"
+@inject IStringLocalizer<Resource> localizer
 
-<h3>Search Movie</h3>
+<h3>@localizer["searchMovieHeader"]</h3>
 
 <EditForm Model="filteredMoviesDTO">
     <div class="form-inline">
         <div class="form-group mb-2">
-            <label for="Title" class="sr-only">Title</label>
-            <input type="text" class="form-control" id="title" placeholder="Movie Title"
+            <label for="Title" class="sr-only">@localizer["tblMovieTitle"]</label>
+            <input type="text" class="form-control" id="title" placeholder="@localizer["movieTitlePlaceholder"]"
                    @bind-value="filteredMoviesDTO.Title" @bind-value:event="oninput"
                    @onkeypress="@((KeyboardEventArgs e) => TitleKeyPress(e))" />
         </div>
         <div class="form-group mx-sm-3 mb-2">
             <select class="form-control" @bind="filteredMoviesDTO.GenreId">
-                <option value="0">--Select a Movie Genre</option>
+                <option value="0">@localizer["lookupMovieGenre"]</option>
                 @foreach (Genre genre in GenresList)
                 {
                     <option value="@genre.Id">@genre.Name</option>
@@ -22,16 +23,16 @@
         <div class="form-group mx-sm-3 mb-2">
             <input type="checkbox" class="form-check-input" id="upcomingReleases" 
                    @bind="filteredMoviesDTO.UpcomingReleases" />
-            <label class="form-check-label" for="upcomingReleases">Upcoming Releases</label>
+            <label class="form-check-label" for="upcomingReleases">@localizer["upcomingRelease"]</label>
         </div>
         <div class="form-group mx-sm-3 mb-2">
             <input type="checkbox" class="form-check-input" id="inTheaters" 
                    @bind="filteredMoviesDTO.InTheaters" />
-            <label class="form-check-label" for="inTheaters">In Theaters</label>
+            <label class="form-check-label" for="inTheaters">@localizer["inTheaters"]</label>
         </div>
 
-        <button type="button" class="btn btn-primary mb-2 mx-sm-3" @onclick="SearchForMovies">Filter</button>
-        <button type="button" class="btn btn-danger mb-2" @onclick="Clear">Clear</button>
+        <button type="button" class="btn btn-primary mb-2 mx-sm-3" @onclick="SearchForMovies">@localizer["filter"]</button>
+        <button type="button" class="btn btn-danger mb-2" @onclick="Clear">@localizer["clear"]</button>
     </div>
 </EditForm>
 

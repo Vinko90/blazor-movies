@@ -1,6 +1,7 @@
 ﻿@page "/movies/create"
+@inject IStringLocalizer<Resource> localizer
 
-<h3>Create Movie</h3>
+<h3>@localizer["createMovieHeader"]</h3>
 
 @if (NotSelectedGenre != null)
 {

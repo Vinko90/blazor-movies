@@ -1,9 +1,10 @@
 ﻿@page "/genres"
+@inject IStringLocalizer<Resource> localizer 
 
-<h3>Genre View</h3>
+<h3>@localizer["indexGenreHeader"]</h3>
 
 <div class="form-group">
-    <a class="btn btn-info" href="genre/create">New Genre</a>
+    <a class="btn btn-info" href="genre/create">@localizer["newGenre"]</a>
 </div>
 
 <GenericList List="GenresList">
@@ -12,7 +13,7 @@
             <thead>
                 <tr>
                     <th></th>
-                    <th>Name</th>
+                    <th>@localizer["name"]</th>
                 </tr>
             </thead>
             <tbody>
@@ -20,8 +21,8 @@
                 {
                     <tr>
                         <td>
-                            <a class="btn btn-success" href="/genre/edit/@item.Id">Edit</a>
-                            <button class="btn btn-danger" @onclick="@(() => DeleteGenre(item.Id))">Delete</button>
+                            <a class="btn btn-success" href="/genre/edit/@item.Id">@localizer["edit"]</a>
+                            <button class="btn btn-danger" @onclick="@(() => DeleteGenre(item.Id))">@localizer["delete"]</button>
                         </td>
                         <td>@item.Name</td>
                     </tr>

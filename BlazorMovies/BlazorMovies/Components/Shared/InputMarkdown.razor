@@ -1,4 +1,5 @@
-﻿@inherits InputTextArea
+﻿@inject IStringLocalizer<Resource> localizer
+@inherits InputTextArea
 @typeparam TValue
 
 <div>
@@ -9,7 +10,7 @@
     </div>
 </div>
 <div>
-    <label>@Label (Preview):</label>
+    <label>@Label (@localizer["preview"]):</label>
     <div class="markdown-container">
         <RenderMarkdown MarkdownContent="@CurrentValue" />
     </div>

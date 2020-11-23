@@ -1,6 +1,7 @@
 ﻿@page "/movies/edit/{MovieId:int}"
+@inject IStringLocalizer<Resource> localizer
 
-<h3>Edit Movie</h3>
+<h3>@localizer["editMovieHeader"]</h3>
 
 @if (MovieItem != null)
 {

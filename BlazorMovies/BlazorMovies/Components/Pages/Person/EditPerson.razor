@@ -1,6 +1,7 @@
 ﻿@page "/person/edit/{PersonId:int}"
+@inject IStringLocalizer<Resource> localizer
 
-<h3>Edit Person</h3>
+<h3>@localizer["editPersonHeader"]</h3>
 
 @if (PersonItem != null)
 {

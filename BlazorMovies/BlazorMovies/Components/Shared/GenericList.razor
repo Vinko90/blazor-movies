@@ -1,4 +1,5 @@
 ﻿@typeparam TItem
+@inject IStringLocalizer<Resource> localizer
 
 @if (List == null)
 {
@@ -8,7 +9,7 @@
     }
     else
     {
-        <h3>Cannot retrieve list!</h3>
+        <h3>@localizer["listError"]</h3>
     }
 }
 else if (List.Count == 0)
@@ -19,7 +20,7 @@ else if (List.Count == 0)
     }
     else
     {
-        <h3>List is empty!</h3>
+        <h3>@localizer["listEmpty"]</h3>
     }
 }
 else

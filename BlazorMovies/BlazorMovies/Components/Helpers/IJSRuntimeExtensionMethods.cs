@@ -17,7 +17,7 @@ namespace BlazorMovies.Components.Helpers
             await js.InvokeVoidAsync("my_function", message);
         }
 
-        #region JWT Support
+        #region Support
 
         public static ValueTask<object> SetInLocalStorage(this IJSRuntime js, string key, string content)
             => js.InvokeAsync<object>("localStorage.setItem", key, content);
