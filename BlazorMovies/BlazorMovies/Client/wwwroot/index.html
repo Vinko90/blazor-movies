@@ -9,6 +9,8 @@
     <link href="css/bootstrap/bootstrap.min.css" rel="stylesheet" />
     <link href="plugins/fontawesome/css/all.css" rel="stylesheet" />
     <link href="css/app.css" rel="stylesheet" />
+    <link href="manifest.json" rel="manifest" />
+    <link rel="apple-touch-icon" sizes="512x512" href="img/icon-512.png" />
     <link href="_content/BlazorMovies.Components/css/custom.css" rel="stylesheet" />
 </head>
 
@@ -22,6 +24,7 @@
     </div>
     <script src="_content/Microsoft.AspNetCore.Components.WebAssembly.Authentication/AuthenticationService.js"></script>
     <script src="_framework/blazor.webassembly.js"></script>
+    <script>navigator.serviceWorker.register('service-worker.js');</script>
     <script src="plugins/sweetalert2/sweetalert2.all.min.js"></script>
     <script src="js/utilities.js"></script>
 </body>
