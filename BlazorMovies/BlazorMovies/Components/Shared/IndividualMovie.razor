@@ -2,14 +2,14 @@
 
 <div class="individual-movie-container">
     <a href="@movieURL">
-        <img src="@movie.Poster" alt="Poster" class="movie-poster" />
+        <img src="@Movie.Poster" alt="Poster" class="movie-poster" />
     </a>
-    <p><a href="@movieURL">@movie.TitleBrief</a></p>
+    <p><a href="@movieURL">@Movie.TitleBrief</a></p>
     <div>
         <AuthorizeView>
             <Authorized>
-                <a class="btn btn-info" href="/movies/edit/@movie.Id">@localizer["edit"]</a>
-                <button type="button" class="btn btn-danger" @onclick="@(() => DeleteMovie.InvokeAsync(movie))">@localizer["delete"]</button>
+                <a class="btn btn-info" href="/movies/edit/@Movie.Id">@localizer["edit"]</a>
+                <button type="button" class="btn btn-danger" @onclick="@(() => DeleteMovie.InvokeAsync(Movie))">@localizer["delete"]</button>
             </Authorized>
         </AuthorizeView>     
     </div>

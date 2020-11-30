@@ -17,7 +17,7 @@ namespace BlazorMovies.Components.Pages.Genres
         {
             try
             {
-                genresList = await genreRepository.GetGenres();
+                genresList = await GenreRepository.GetGenres();
             }
             catch(Exception ex)
             {
@@ -27,11 +27,11 @@ namespace BlazorMovies.Components.Pages.Genres
 
         private async Task DeleteGenre(int id)
         {
-            await genreRepository.DeleteGenre(id);
-            genresList = await genreRepository.GetGenres();
+            await GenreRepository.DeleteGenre(id);
+            genresList = await GenreRepository.GetGenres();
         }
 
         [Inject]
-        protected IGenreRepository genreRepository { get; set; }
+        protected IGenreRepository GenreRepository { get; set; }
     }
 }

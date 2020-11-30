@@ -5,7 +5,7 @@
 
 <Pagination CurrentPage="@paginationDTO.Page" SelectedPage="SelectedPage" TotalAmountOfPages="totalAmountOfPages" />
 
-<GenericList List="Users">
+<GenericList List="users">
     <WholeListTemplate>
         <table class="table">
             <thead>
@@ -15,7 +15,7 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach (var user in Users)
+                @foreach (var user in users)
                 {
                     <tr>
                         <td>

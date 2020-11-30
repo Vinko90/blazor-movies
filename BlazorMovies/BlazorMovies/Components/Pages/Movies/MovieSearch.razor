@@ -14,7 +14,7 @@
         <div class="form-group mx-sm-3 mb-2">
             <select class="form-control" @bind="filteredMoviesDTO.GenreId">
                 <option value="0">@localizer["lookupMovieGenre"]</option>
-                @foreach (Genre genre in GenresList)
+                @foreach (Genre genre in genresList)
                 {
                     <option value="@genre.Id">@genre.Name</option>
                 }
@@ -36,6 +36,6 @@
     </div>
 </EditForm>
 
-<MovieList Movies="MoviesList" /> 
+<MovieList Movies="moviesList" /> 
 
 <Pagination CurrentPage="filteredMoviesDTO.Page" TotalAmountOfPages="totalAmountOfPages" SelectedPage="SelectedPage" />

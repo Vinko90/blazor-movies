@@ -3,7 +3,7 @@
 
 <h3>@localizer["editMovieHeader"]</h3>
 
-@if (MovieItem != null)
+@if (movieItem != null)
 {
-    <MovieForm MovieItem="MovieItem" OnValidMovieSubmit="EditMovieItem" NotSelectedGenres="NotSelectedGenre" SelectedGenres="SelectedGenre" SelectedActors="SelectedActors" />
+    <MovieForm MovieItem="movieItem" OnValidMovieSubmit="EditMovieItem" NotSelectedGenres="notSelectedGenre" SelectedGenres="selectedGenre" SelectedActors="SelectedActors" />
 }

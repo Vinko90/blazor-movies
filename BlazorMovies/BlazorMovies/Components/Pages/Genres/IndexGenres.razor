@@ -7,7 +7,7 @@
     <a class="btn btn-info" href="genre/create">@localizer["newGenre"]</a>
 </div>
 
-<GenericList List="GenresList">
+<GenericList List="genresList">
     <WholeListTemplate>
         <table class="table table-striped">
             <thead>
@@ -17,7 +17,7 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach (var item in GenresList)
+                @foreach (var item in genresList)
                 {
                     <tr>
                         <td>

@@ -9,7 +9,7 @@ namespace BlazorMovies.Components.Shared
     public partial class InputImg
     {
         private string imageBase64;
-        private readonly ElementReference inputReference;
+        private ElementReference inputReference;
 
         private async Task ImageFileSelected()
         {

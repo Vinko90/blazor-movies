@@ -12,7 +12,7 @@ namespace BlazorMovies.Components.Pages.Users
     public partial class EditUser
     {
         private List<RoleDTO> roles = new List<RoleDTO>();
-        private readonly string selectedRole = "0";
+        private string selectedRole = "0";
 
         protected override async Task OnInitializedAsync()
         {

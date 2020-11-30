@@ -49,13 +49,13 @@
         <label>@localizer["actors"]:</label>
         <div>
             <MultipleSelectorTypeahead Context="person" SearchMethod="SearchMethod" SelectedElements="SelectedActors">
-                <MyResultTemplate>
+                <ResultTemplate>
                     <img style="width: 50px;" src="@person.Picture" />
                     @person.Name
-                </MyResultTemplate>
-                <MyListTemplate>
+                </ResultTemplate>
+                <ListTemplate>
                     @person.Name / <input type="text" placeholder="Character" @bind="person.Character" />
-                </MyListTemplate>
+                </ListTemplate>
             </MultipleSelectorTypeahead>
         </div>
     </div>

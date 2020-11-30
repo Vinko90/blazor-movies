@@ -9,7 +9,7 @@
 
 <Pagination CurrentPage="@pagination.Page" TotalAmountOfPages="totalAmountOfPages" SelectedPage="SelectedPage" />
 
-<GenericList List="PersonList">
+<GenericList List="personList">
     <WholeListTemplate>
         <table class="table table-striped">
             <thead>
@@ -19,7 +19,7 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach (var item in PersonList)
+                @foreach (var item in personList)
                 {
                     <tr>
                         <td>

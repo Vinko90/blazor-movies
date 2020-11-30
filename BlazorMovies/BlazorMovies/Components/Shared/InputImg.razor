@@ -1,15 +1,15 @@
 <div>
     <label>@Label</label>
     <div>
-        <input type="file" @ref="InputReference" @onchange="ImageFileSelected" accept=".jpg,.jpeg,.png" />
+        <input type="file" @ref="inputReference" @onchange="ImageFileSelected" accept=".jpg,.jpeg,.png" />
     </div>
 </div>
 <div>
-    @if (ImageBase64 != null)
+    @if (imageBase64 != null)
     {
         <div>
             <div style="margin:10px">
-               <img src="data:image/jpeg;base64, @ImageBase64" style="width: 400px;" /> 
+               <img src="data:image/jpeg;base64, @imageBase64" style="width: 400px;" /> 
             </div>
         </div>
     }
