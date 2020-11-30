@@ -7,21 +7,6 @@ namespace BlazorMovies.Components.Shared
 {
     public partial class Rating
     {
-        [Inject]
-        protected IDisplayMessage displayMessage { get; set; }
-
-        [Parameter]
-        public int MaximumRating { get; set; }
-
-        [Parameter]
-        public int SelectedRating { get; set; }
-
-        [Parameter]
-        public EventCallback<int> OnVote { get; set; }
-
-        [CascadingParameter]
-        public Task<AuthenticationState> AuthenticationState { get; set; }
-
         private bool voted = false;
 
         private async Task OnClickHandle(int starNumber)
@@ -31,7 +16,7 @@ namespace BlazorMovies.Components.Shared
 
             if (!user.Identity.IsAuthenticated)
             {
-                await displayMessage.DisplayError("You must login in order to vote!");
+                await DisplayMessage.DisplayError("You must login in order to vote!");
                 return;
             }
 
@@ -47,5 +32,20 @@ namespace BlazorMovies.Components.Shared
                 SelectedRating = starNumber;
             }
         }
+
+        [Inject]
+        protected IDisplayMessage DisplayMessage { get; set; }
+
+        [Parameter]
+        public int MaximumRating { get; set; }
+
+        [Parameter]
+        public int SelectedRating { get; set; }
+
+        [Parameter]
+        public EventCallback<int> OnVote { get; set; }
+
+        [CascadingParameter]
+        public Task<AuthenticationState> AuthenticationState { get; set; }
     }
 }

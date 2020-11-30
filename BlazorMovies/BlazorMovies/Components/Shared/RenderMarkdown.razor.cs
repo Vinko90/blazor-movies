@@ -5,21 +5,21 @@ namespace BlazorMovies.Components.Shared
 {
     public partial class RenderMarkdown
     {
-        [Parameter]
-        public string MarkdownContent { get; set; }
-
-        private string HTMLContent;
+        private string htmlContent;
 
         protected override void OnParametersSet()
         {
             if (!string.IsNullOrEmpty(MarkdownContent))
             {
-                HTMLContent = Markdown.ToHtml(MarkdownContent);
+                htmlContent = Markdown.ToHtml(MarkdownContent);
             }
             else
             {
-                HTMLContent = null;
+                htmlContent = null;
             }
         }
+
+        [Parameter]
+        public string MarkdownContent { get; set; }
     }
 }

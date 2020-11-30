@@ -10,25 +10,25 @@ namespace BlazorMovies.Components.Pages.Genres
     [Authorize(Roles = "Admin")]
     public partial class CreateGenre
     {
-        private Genre genre = new Genre();
-
-        [Inject]
-        protected IGenreRepository genreRepository { get; set; }
-
-        [Inject]
-        protected NavigationManager navMan { get; set; }
+        private readonly Genre genre = new Genre();
 
         private async Task Create()
         {
             try
             {
-                await genreRepository.CreateGenre(genre);
-                navMan.NavigateTo("genres");
+                await GenreRepository.CreateGenre(genre);
+                NavMan.NavigateTo("genres");
             }
             catch (Exception ex)
             {
                 Console.WriteLine($"Exception: {ex.Message}");
             }
         }
+
+        [Inject]
+        protected IGenreRepository GenreRepository { get; set; }
+
+        [Inject]
+        protected NavigationManager NavMan { get; set; }
     }
 }

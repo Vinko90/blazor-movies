@@ -7,16 +7,16 @@ namespace BlazorMovies.Components.Shared
 {
     public partial class LoginLinks
     {
-        [Inject]
-        protected NavigationManager NavMan { get; set; }
-
-        [Inject]
-        protected SignOutSessionStateManager SignOutManager { get; set; }
-
         private async Task BeginSignOut(MouseEventArgs args)
         {
             await SignOutManager.SetSignOutState();
             NavMan.NavigateTo("authentication/logout");
         }
+
+        [Inject]
+        protected NavigationManager NavMan { get; set; }
+
+        [Inject]
+        protected SignOutSessionStateManager SignOutManager { get; set; }
     }
 }

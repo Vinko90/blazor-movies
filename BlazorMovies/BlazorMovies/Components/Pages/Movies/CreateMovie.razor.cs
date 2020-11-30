@@ -11,35 +11,35 @@ namespace BlazorMovies.Components.Pages.Movies
     [Authorize(Roles = "Admin")]
     public partial class CreateMovie
     {
-        [Inject]
-        protected IMoviesRepository movieRepository { get; set; }
+        private readonly Movie movieItem = new Movie();
 
-        [Inject]
-        protected IGenreRepository genreRepository { get; set; }
-
-        [Inject]
-        protected NavigationManager NavMan { get; set; }
-
-        private Movie MovieItem = new Movie();
-
-        private List<Genre> NotSelectedGenre;
+        private List<Genre> notSelectedGenre;
 
         protected override async Task OnInitializedAsync()
         {
-            NotSelectedGenre = await genreRepository.GetGenres();
+            notSelectedGenre = await GenreRepository.GetGenres();
         }
 
         private async Task SaveMovie()
         {
             try
             {
-                var movieId = await movieRepository.CreateMovie(MovieItem);
-                NavMan.NavigateTo($"movie/{movieId}/{MovieItem.Title.Replace(" ", "-")}");
+                var movieId = await MovieRepository.CreateMovie(movieItem);
+                NavMan.NavigateTo($"movie/{movieId}/{movieItem.Title.Replace(" ", "-")}");
             }
             catch (Exception ex)
             {
                 Console.WriteLine($"Exception: {ex.Message}");
             }
         }
+
+        [Inject]
+        protected IMoviesRepository MovieRepository { get; set; }
+
+        [Inject]
+        protected IGenreRepository GenreRepository { get; set; }
+
+        [Inject]
+        protected NavigationManager NavMan { get; set; }
     }
 }

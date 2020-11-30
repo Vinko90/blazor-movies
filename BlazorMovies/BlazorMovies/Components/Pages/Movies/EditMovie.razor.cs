@@ -10,37 +10,34 @@ namespace BlazorMovies.Components.Pages.Movies
     [Authorize(Roles = "Admin")]
     public partial class EditMovie
     {
-        [Inject]
-        public IMoviesRepository moviesRepository { get; set; }
-
-        [Inject]
-        public NavigationManager navMan { get; set; }
-
-        [Parameter]
-        public int MovieId { get; set; }
-
-        private Movie MovieItem;
-
-        private List<Genre> NotSelectedGenre;
-
-        private List<Genre> SelectedGenre;
-
+        private Movie movieItem;
+        private List<Genre> notSelectedGenre;
+        private List<Genre> selectedGenre;
         private List<BlazorMovies.Shared.Entities.Person> SelectedActors;
 
         protected async override Task OnInitializedAsync()
         {
-            var model = await moviesRepository.GetMovieForUpdateAsync(MovieId);
+            var model = await MoviesRepository.GetMovieForUpdateAsync(MovieId);
 
-            MovieItem = model.MovieItem;
-            NotSelectedGenre = model.NotSelectedGenres;
-            SelectedGenre = model.SelectedGenres;
+            movieItem = model.MovieItem;
+            notSelectedGenre = model.NotSelectedGenres;
+            selectedGenre = model.SelectedGenres;
             SelectedActors = model.Actors;
         }
 
         private async Task EditMovieItem()
         {
-            await moviesRepository.UpdateMovie(MovieItem);
-            navMan.NavigateTo($"movie/{MovieId}/{MovieItem.Title.Replace(" ", " - ")}");
+            await MoviesRepository.UpdateMovie(movieItem);
+            NavMan.NavigateTo($"movie/{MovieId}/{movieItem.Title.Replace(" ", " - ")}");
         }
+
+        [Inject]
+        public IMoviesRepository MoviesRepository { get; set; }
+
+        [Inject]
+        public NavigationManager NavMan { get; set; }
+
+        [Parameter]
+        public int MovieId { get; set; }
     }
 }

@@ -11,16 +11,13 @@ namespace BlazorMovies.Components.Pages.Genres
     [Authorize(Roles = "Admin")]
     public partial class IndexGenres
     {
-        private List<Genre> GenresList;
-
-        [Inject]
-        protected IGenreRepository genreRepository { get; set; }
+        private List<Genre> genresList;
 
         protected override async Task OnInitializedAsync()
         {
             try
             {
-                GenresList = await genreRepository.GetGenres();
+                genresList = await genreRepository.GetGenres();
             }
             catch(Exception ex)
             {
@@ -31,7 +28,10 @@ namespace BlazorMovies.Components.Pages.Genres
         private async Task DeleteGenre(int id)
         {
             await genreRepository.DeleteGenre(id);
-            GenresList = await genreRepository.GetGenres();
+            genresList = await genreRepository.GetGenres();
         }
+
+        [Inject]
+        protected IGenreRepository genreRepository { get; set; }
     }
 }

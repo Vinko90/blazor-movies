@@ -8,26 +8,26 @@ namespace BlazorMovies.Components.Pages.Person
     [Authorize(Roles = "Admin")]
     public partial class EditPerson
     {
-        [Inject]
-        public IPersonRepository personRepository { get; set; }
-
-        [Inject]
-        public NavigationManager navMan { get; set; }
-
-        [Parameter]
-        public int PersonId { get; set; }
-
-        private BlazorMovies.Shared.Entities.Person PersonItem;
+        private BlazorMovies.Shared.Entities.Person personItem;
 
         protected async override Task OnInitializedAsync()
         {
-            PersonItem = await personRepository.GetPersonById(PersonId);
+            personItem = await PersonRepository.GetPersonById(PersonId);
         }
 
         private async Task Edit()
         {
-            await personRepository.UpdatePerson(PersonItem);
-            navMan.NavigateTo("person");
+            await PersonRepository.UpdatePerson(personItem);
+            NavMan.NavigateTo("person");
         }
+
+        [Inject]
+        public IPersonRepository PersonRepository { get; set; }
+
+        [Inject]
+        public NavigationManager NavMan { get; set; }
+
+        [Parameter]
+        public int PersonId { get; set; }
     }
 }

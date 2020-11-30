@@ -10,29 +10,8 @@ namespace BlazorMovies.Components.Shared
 {
     public partial class MovieForm
     {
-        [Inject]
-        public IPersonRepository personRepository { get; set; }
-
-        [Parameter]
-        public Movie MovieItem { get; set; }
-
-        [Parameter]
-        public EventCallback OnValidMovieSubmit { get; set; }
-
-        [Parameter]
-        public List<Genre> SelectedGenres { get; set; } = new List<Genre>();
-
-        [Parameter]
-        public List<Genre> NotSelectedGenres { get; set; } = new List<Genre>();
-
-        [Parameter]
-        public List<Person> SelectedActors { get; set; } = new List<Person>();
-
         private string ImageURL;
-
         private List<MultipleSelectorModel> Selected = new List<MultipleSelectorModel>();
-
-
         private List<MultipleSelectorModel> NotSelected = new List<MultipleSelectorModel>();
 
         protected override void OnInitialized()
@@ -60,7 +39,7 @@ namespace BlazorMovies.Components.Shared
 
         private async Task<IEnumerable<Person>> SearchMethod(string searchText)
         {
-            return await personRepository.GetPeopleByName(searchText);
+            return await PersonRepository.GetPeopleByName(searchText);
         }
 
         private async Task OnDataAnnotationsValidated()
@@ -76,5 +55,23 @@ namespace BlazorMovies.Components.Shared
 
             await OnValidMovieSubmit.InvokeAsync(null);
         }
+
+        [Inject]
+        public IPersonRepository PersonRepository { get; set; }
+
+        [Parameter]
+        public Movie MovieItem { get; set; }
+
+        [Parameter]
+        public EventCallback OnValidMovieSubmit { get; set; }
+
+        [Parameter]
+        public List<Genre> SelectedGenres { get; set; } = new List<Genre>();
+
+        [Parameter]
+        public List<Genre> NotSelectedGenres { get; set; } = new List<Genre>();
+
+        [Parameter]
+        public List<Person> SelectedActors { get; set; } = new List<Person>();
     }
 }

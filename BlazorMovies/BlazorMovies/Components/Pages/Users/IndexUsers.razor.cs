@@ -10,11 +10,8 @@ namespace BlazorMovies.Components.Pages.Users
     [Authorize(Roles = "Admin")]
     public partial class IndexUsers
     {
-        [Inject]
-        protected IUsersRepository usersRepository { get; set; }
-
-        private List<UserDTO> Users;
-        private PaginationDTO paginationDTO = new PaginationDTO();
+        private List<UserDTO> users;
+        private readonly PaginationDTO paginationDTO = new PaginationDTO();
         private int totalAmountOfPages;
 
         protected override async Task OnInitializedAsync()
@@ -24,8 +21,8 @@ namespace BlazorMovies.Components.Pages.Users
 
         private async Task LoadUsers()
         {
-            var paginatedResponse = await usersRepository.GetUsers(paginationDTO);
-            Users = paginatedResponse.Response;
+            var paginatedResponse = await UsersRepository.GetUsers(paginationDTO);
+            users = paginatedResponse.Response;
             totalAmountOfPages = paginatedResponse.TotalAmountOfPages;
         }
 
@@ -34,5 +31,8 @@ namespace BlazorMovies.Components.Pages.Users
             paginationDTO.Page = page;
             await LoadUsers();
         }
+
+        [Inject]
+        protected IUsersRepository UsersRepository { get; set; }
     }
 }

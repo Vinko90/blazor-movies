@@ -8,18 +8,6 @@ namespace BlazorMovies.Components.Shared
 {
     public partial class MultipleSelectorTypeahead<T>
     {
-        [Parameter]
-        public List<T> SelectedElements { get; set; } = new List<T>();
-
-        [Parameter]
-        public Func<string, Task<IEnumerable<T>>> SearchMethod { get; set; }
-
-        [Parameter]
-        public RenderFragment<T> MyResultTemplate { get; set; }
-
-        [Parameter]
-        public RenderFragment<T> MyListTemplate { get; set; }
-
         private T draggedItem;
 
         private void SelectedElement(T item)
@@ -45,5 +33,17 @@ namespace BlazorMovies.Components.Shared
                 SelectedElements[dragElementIndex] = item;
             }
         }
+
+        [Parameter]
+        public List<T> SelectedElements { get; set; } = new List<T>();
+
+        [Parameter]
+        public Func<string, Task<IEnumerable<T>>> SearchMethod { get; set; }
+
+        [Parameter]
+        public RenderFragment<T> ResultTemplate { get; set; }
+
+        [Parameter]
+        public RenderFragment<T> ListTemplate { get; set; }
     }
 }

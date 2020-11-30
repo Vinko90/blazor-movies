@@ -11,12 +11,9 @@ namespace BlazorMovies.Components.Pages.Person
     [Authorize(Roles = "Admin")]
     public partial class IndexPerson
     {
-        private List<BlazorMovies.Shared.Entities.Person> PersonList;
-        private PaginationDTO pagination = new PaginationDTO() { RecordsPerPage = 4 };
+        private List<BlazorMovies.Shared.Entities.Person> personList;
+        private readonly PaginationDTO pagination = new PaginationDTO() { RecordsPerPage = 4 };
         private int totalAmountOfPages;
-
-        [Inject]
-        protected IPersonRepository personRepository { get; set; }
 
         protected override async Task OnInitializedAsync()
         {
@@ -32,14 +29,14 @@ namespace BlazorMovies.Components.Pages.Person
 
         private async Task DeletePerson(int id)
         {
-            await personRepository.DeletePerson(id);
+            await PersonRepository.DeletePerson(id);
             await LoadPeople();
         }
 
         private async Task LoadPeople()
         {
-            var paginatedResponse = await personRepository.GetPersons(pagination);
-            PersonList = paginatedResponse.Response;
+            var paginatedResponse = await PersonRepository.GetPersons(pagination);
+            personList = paginatedResponse.Response;
             totalAmountOfPages = paginatedResponse.TotalAmountOfPages;
         }
 
@@ -48,5 +45,8 @@ namespace BlazorMovies.Components.Pages.Person
             pagination.Page = page;
             await LoadPeople();
         }
+
+        [Inject]
+        protected IPersonRepository PersonRepository { get; set; }
     }
 }

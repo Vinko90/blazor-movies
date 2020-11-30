@@ -6,13 +6,7 @@ namespace BlazorMovies.Components.Shared
 {
     public partial class MultipleSelector
     {
-        [Parameter]
-        public List<MultipleSelectorModel> NotSelected { get; set; } = new List<MultipleSelectorModel>();
-
-        [Parameter]
-        public List<MultipleSelectorModel> Selected { get; set; } = new List<MultipleSelectorModel>();
-
-        private string RemoveAllText = "<<";
+        private readonly string removeAllText = "<<";
 
         private void SelectItem(MultipleSelectorModel item)
         {
@@ -37,5 +31,11 @@ namespace BlazorMovies.Components.Shared
             NotSelected.AddRange(Selected);
             Selected.Clear();
         }
+
+        [Parameter]
+        public List<MultipleSelectorModel> NotSelected { get; set; } = new List<MultipleSelectorModel>();
+
+        [Parameter]
+        public List<MultipleSelectorModel> Selected { get; set; } = new List<MultipleSelectorModel>();
     }
 }

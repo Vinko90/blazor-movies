@@ -13,24 +13,15 @@ namespace BlazorMovies.Components.Pages.Movies
     public partial class MovieSearch
     {
         private int totalAmountOfPages;
-        private List<Genre> GenresList = new List<Genre>();
-        private List<Movie> MoviesList = new List<Movie>();
+        private List<Genre> genresList = new List<Genre>();
+        private List<Movie> moviesList = new List<Movie>();
         private readonly FilterMoviesDTO filteredMoviesDTO = new FilterMoviesDTO() { RecordsPerPage = 10};
-
-        [Inject]
-        public IMoviesRepository MovieRepository { get; set; }
-
-        [Inject]
-        public IGenreRepository GenreRepository { get; set; }
-
-        [Inject]
-        public NavigationManager NavMan { get; set; }
 
         protected async override Task OnInitializedAsync()
         {
             var queryStrings = NavMan.GetQueryStrings(NavMan.Uri);
             
-            GenresList = await GenreRepository.GetGenres();
+            genresList = await GenreRepository.GetGenres();
 
             if (queryStrings != null)
             {
@@ -83,7 +74,7 @@ namespace BlazorMovies.Components.Pages.Movies
                 NavMan.NavigateTo("movies/search" + queryString);
             }
             var paginatedResponse = await MovieRepository.GetMoviesFiltered(filteredMoviesDTO);
-            MoviesList = paginatedResponse.Response;
+            moviesList = paginatedResponse.Response;
             totalAmountOfPages = paginatedResponse.TotalAmountOfPages;
         }
 
@@ -128,5 +119,14 @@ namespace BlazorMovies.Components.Pages.Movies
             filteredMoviesDTO.InTheaters = false;
             await SearchForMovies();
         }
+
+        [Inject]
+        public IMoviesRepository MovieRepository { get; set; }
+
+        [Inject]
+        public IGenreRepository GenreRepository { get; set; }
+
+        [Inject]
+        public NavigationManager NavMan { get; set; }
     }
 }

@@ -6,12 +6,6 @@ namespace BlazorMovies.Components.Shared
 {
     public partial class CultureSelector
     {
-        [Inject]
-        protected IJSRuntime js { get; set; }
-
-        [Inject]
-        protected NavigationManager NavMan { get; set; }
-
         private readonly CultureInfo[] cultures = new[]
         {
             new CultureInfo("en-US"),
@@ -23,10 +17,16 @@ namespace BlazorMovies.Components.Shared
             get => CultureInfo.CurrentCulture;
             set
             {
-                var jsInProcessRuntime = (IJSInProcessRuntime)js;
+                var jsInProcessRuntime = (IJSInProcessRuntime)Js;
                 jsInProcessRuntime.InvokeVoid("setInLocalStorage", "culture", value.Name);
                 NavMan.NavigateTo(NavMan.Uri, forceLoad: true);
             }
         }
+
+        [Inject]
+        protected IJSRuntime Js { get; set; }
+
+        [Inject]
+        protected NavigationManager NavMan { get; set; }
     }
 }

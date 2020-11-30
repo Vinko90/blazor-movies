@@ -9,19 +9,15 @@ namespace BlazorMovies.Components.Pages
 {
     public partial class Index
     {
-        [Inject]
-        public IMoviesRepository moviesRepository { get; set; }
-
-        private List<Movie> InTheaters;
-
-        private List<Movie> UpcomingReleases;
+        private List<Movie> inTheaters;
+        private List<Movie> upcomingReleases;
 
         protected async override Task OnInitializedAsync()
         {
-            var response = await moviesRepository.GetIndexPageDTOAsync();
+            var response = await MoviesRepository.GetIndexPageDTOAsync();
 
-            InTheaters = response.InTheathers;
-            UpcomingReleases = response.UpcomingReleases;
+            inTheaters = response.InTheathers;
+            upcomingReleases = response.UpcomingReleases;
         }
 
         private async Task<IEnumerable<string>> SearchMethod(string searchText)
@@ -35,5 +31,8 @@ namespace BlazorMovies.Components.Pages
 
             return new List<string>() { "Test1", "Test2", "Test3" };
         }
+
+        [Inject]
+        public IMoviesRepository MoviesRepository { get; set; }
     }
 }

@@ -5,19 +5,13 @@ namespace BlazorMovies.Components.Shared
 {
     public partial class PersonForm
     {
-        [Parameter]
-        public Person PersonItem { get; set; }
-        
-        [Parameter]
-        public EventCallback OnValidPersonSubmit { get; set; }
-
-        private string ImageURL;
+        private string imageURL;
 
         protected override void OnInitialized()
         {
             if (!string.IsNullOrEmpty(PersonItem.Picture))
             {
-                ImageURL = PersonItem.Picture;
+                imageURL = PersonItem.Picture;
                 PersonItem.Picture = null;
             }
         }
@@ -25,7 +19,13 @@ namespace BlazorMovies.Components.Shared
         private void PictureSelected(string imageBase64)
         {
             PersonItem.Picture = imageBase64;
-            ImageURL = null;
+            imageURL = null;
         }
+
+        [Parameter]
+        public Person PersonItem { get; set; }
+
+        [Parameter]
+        public EventCallback OnValidPersonSubmit { get; set; }
     }
 }
