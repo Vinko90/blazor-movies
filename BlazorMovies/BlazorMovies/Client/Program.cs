@@ -9,7 +9,6 @@ using Microsoft.AspNetCore.Components.WebAssembly.Authentication;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.JSInterop;
-using Tewr.Blazor.FileReader;
 
 namespace BlazorMovies.Client
 {
@@ -64,8 +63,6 @@ namespace BlazorMovies.Client
             services.AddScoped<IUsersRepository, UsersRepository>();
             services.AddScoped<IDisplayMessage, DisplayMessage>();
             
-            services.AddFileReaderService(options => options.InitializeOnFirstCall = true);
-
             services.AddApiAuthorization();
         }
     }

@@ -1,32 +1,29 @@
 using System;
-using System.IO;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Components;
-using Tewr.Blazor.FileReader;
+using Microsoft.AspNetCore.Components.Forms;
 
 namespace BlazorMovies.Components.Shared
 {
     public partial class InputImg
     {
         private string imageBase64;
-        private ElementReference inputReference;
 
-        private async Task ImageFileSelected()
+        private async Task ImageFileSelected(InputFileChangeEventArgs e)
         {
-            foreach (var file in await FileReaderService.CreateReference(inputReference).EnumerateFilesAsync())
+            var imagesFiles = e.GetMultipleFiles();
+
+            foreach (var imageFile in imagesFiles)
             {
-                using MemoryStream memoryStream = await file.CreateMemoryStreamAsync(4 * 1024);
-                var imageBytes = new byte[memoryStream.Length];
-                memoryStream.Read(imageBytes, 0, (int)memoryStream.Length);
-                imageBase64 = Convert.ToBase64String(imageBytes);
+                var buffer = new byte[imageFile.Size];
+                await imageFile.OpenReadStream().ReadAsync(buffer);
+                imageBase64 = Convert.ToBase64String(buffer);
+
                 await OnSelectedImage.InvokeAsync(imageBase64);
                 ImageURL = null;
-                StateHasChanged();
+                StateHasChanged();              
             }
         }
-
-        [Inject]
-        private IFileReaderService FileReaderService { get; set; }
 
         [Parameter]
         public string Label { get; set; } = "Image";
