@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.ApiAuthorization.IdentityServer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
+using System.Security.Claims;
 
 namespace BlazorMovies.DataAccess
 {
@@ -31,6 +32,40 @@ namespace BlazorMovies.DataAccess
         {
             modelBuilder.Entity<MoviesActors>().HasKey(x => new { x.MovieId, x.PersonId });
             modelBuilder.Entity<MoviesGenres>().HasKey(x => new { x.MovieId, x.GenreId });
+
+            //Add Admin role
+            modelBuilder.Entity<IdentityRole>().HasData(new IdentityRole 
+            { 
+                Id = "1",
+                Name = "Admin",
+                NormalizedName = "Admin",
+            });
+
+            //Add Admin user
+            var userAdminId = "6af3decf-7e66-40ea-9c87-67a88a89f368";
+            var hasher = new PasswordHasher<IdentityUser>();
+
+            var userAdmin = new IdentityUser()
+            {
+                Id = userAdminId,
+                Email = "admin@admin.com",
+                UserName = "admin@admin.com",
+                NormalizedEmail = "admin@admin.com",
+                NormalizedUserName = "admin@admin.com",
+                EmailConfirmed = true,
+                PasswordHash = hasher.HashPassword(null, "Admin_123")
+            };
+            modelBuilder.Entity<IdentityUser>().HasData(userAdmin);
+
+            //Bind user to Admin role
+            modelBuilder.Entity<IdentityUserClaim<string>>()
+                .HasData(new IdentityUserClaim<string>()
+                {
+                    Id = 1,
+                    ClaimType = ClaimTypes.Role,
+                    ClaimValue = "Admin",
+                    UserId = userAdminId
+                });
 
             base.OnModelCreating(modelBuilder);
         }
