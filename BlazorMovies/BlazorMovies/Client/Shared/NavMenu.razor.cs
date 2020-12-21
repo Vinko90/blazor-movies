@@ -1,4 +1,4 @@
-﻿namespace BlazorMovies.Components.Shared
+﻿namespace BlazorMovies.Client.Shared
 {
     public partial class NavMenu
     {
